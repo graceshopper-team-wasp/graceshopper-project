@@ -1,6 +1,7 @@
 'use strict'
 
 const {green, red} = require('chalk')
+const {findDOMNode} = require('react-dom')
 const db = require('../server/db')
 const {User, Product, Cart} = require('../server/db/models')
 
@@ -9,7 +10,8 @@ async function seed() {
   console.log('db synced!')
 
   //Users
-  const users = [
+
+  await User.bulkCreate([
     {
       email: 'nikki@teamwasp.com',
       password: 'lacroix'
@@ -26,8 +28,8 @@ async function seed() {
       email: 'malika@teamwasp.com',
       password: 'schweppes'
     }
-  ]
-  const [nikki, nuala, catherine, malika] = await User.bulkCreate(users)
+  ])
+
   console.log(green('Seeded users'))
 
   const products = [
@@ -77,6 +79,24 @@ async function seed() {
     grapefruit
   ] = await Product.bulkCreate(products)
   console.log(green('Seeded products'))
+
+  const nuala = await User.findOne({
+    where: {
+      email: 'nuala@teamwasp.com'
+    }
+  })
+  nuala.addToCart(1, 7)
+  nuala.addToCart(2, 8)
+
+  const malika = await User.findOne({
+    where: {
+      email: 'malika@teamwasp.com'
+    }
+  })
+  malika.addToCart(3, 1)
+  malika.addToCart(4, 5)
+
+  console.log('nuala', nuala)
 
   await Product.bulkCreate([
     {
