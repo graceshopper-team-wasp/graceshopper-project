@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// GET /api/product/:id
+// GET /api/products/:id
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findOne({
