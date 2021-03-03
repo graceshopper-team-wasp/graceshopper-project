@@ -1,5 +1,7 @@
 'use strict'
 
+// this seed file has a lot of data! Nice work
+// if you want to slim down, extract the js objects to a json file
 const {green, red} = require('chalk')
 const {findDOMNode} = require('react-dom')
 const db = require('../server/db')

@@ -4,6 +4,8 @@ const User = db.model('user')
 const Product = db.model('product')
 const Cart = db.model('cart')
 
+// great start with your tests!
+
 describe('Product model', () => {
   beforeEach(() => {
     return db.sync({force: true})

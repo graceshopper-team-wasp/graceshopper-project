@@ -9,6 +9,7 @@ const Product = db.define('product', {
   inventory: {
     type: Sequelize.INTEGER
   },
+  // are there other validations we can add to this one? Perhaps a min value
   price: {
     type: Sequelize.FLOAT,
     allowNull: false

@@ -34,7 +34,7 @@ export const updateProduct = product => {
     try {
       const updated = (await axios.put(`/api/products/${product.id}`, {
         product,
-        callback: 'updateProduct'
+        callback: 'updateProduct' // what is callback here?
       })).data
       dispatch(_updateProduct(updated))
     } catch (error) {
