@@ -19,7 +19,8 @@ const Product = db.define('product', {
   },
   imageURL: {
     type: Sequelize.TEXT,
-    defaultValue: ''
+    defaultValue:
+      'https://ucarecdn.com/8a74b68c-3a61-4338-b294-d4a0b858f0f7/-/preview/'
   }
 })
 
