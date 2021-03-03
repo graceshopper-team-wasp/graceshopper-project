@@ -81,11 +81,6 @@ async function seed() {
   ] = await Product.bulkCreate(products, {returning: true})
   console.log(green('Seeded products'))
 
-  nuala.addToCart(cherry.id)
-  nuala.addToCart(cherry.id)
-  nikki.addToCart(blueberry.id)
-  nikki.addToCart(blueberry.id)
-
   await Product.bulkCreate([
     {
       flavor: 'Pike - Frozen Fillet',
