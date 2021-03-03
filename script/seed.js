@@ -3,15 +3,14 @@
 const {green, red} = require('chalk')
 const {findDOMNode} = require('react-dom')
 const db = require('../server/db')
-const {User, Product, Cart} = require('../server/db/models')
+const {Product, User, Cart} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   //Users
-
-  await User.bulkCreate([
+  const users = [
     {
       email: 'nikki@teamwasp.com',
       password: 'lacroix'
@@ -28,7 +27,8 @@ async function seed() {
       email: 'malika@teamwasp.com',
       password: 'schweppes'
     }
-  ])
+  ]
+  const [nikki, nuala] = await User.bulkCreate(users, {returning: true})
 
   console.log(green('Seeded users'))
 
@@ -70,6 +70,7 @@ async function seed() {
       description: 'grapefruit seltzer'
     }
   ]
+
   const [
     cherry,
     pomegranate,
@@ -77,24 +78,8 @@ async function seed() {
     orange,
     blueberry,
     grapefruit
-  ] = await Product.bulkCreate(products)
+  ] = await Product.bulkCreate(products, {returning: true})
   console.log(green('Seeded products'))
-
-  const nuala = await User.findOne({
-    where: {
-      email: 'nuala@teamwasp.com'
-    }
-  })
-  nuala.addToCart(1, 7)
-  nuala.addToCart(2, 8)
-
-  const malika = await User.findOne({
-    where: {
-      email: 'malika@teamwasp.com'
-    }
-  })
-  malika.addToCart(3, 1)
-  malika.addToCart(4, 5)
 
   await Product.bulkCreate([
     {

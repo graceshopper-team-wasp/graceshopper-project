@@ -35,10 +35,6 @@ const User = db.define('user', {
       return () => this.getDataValue('salt')
     }
   },
-  orderHistory: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    defaultValue: []
-  },
   googleId: {
     type: Sequelize.STRING
   }
@@ -50,12 +46,65 @@ module.exports = User
  * instanceMethods
  */
 
-User.prototype.addToCart = async function(productId, quantity) {
-  await Cart.create({
-    userId: this.id,
-    productId,
-    quantity
+//add to cart finds product/user association or creats, and increments quantity by one
+User.prototype.addToCart = async function(productId) {
+  try {
+    const [cart, wasCreated] = await Cart.findOrCreate({
+      where: {
+        userId: this.id,
+        productId
+      }
+    })
+    if (wasCreated) {
+      cart.quantity = 1
+    } else {
+      cart.increment('quantity')
+    }
+    await cart.save()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+//add to cart finds product/user association and decrements quantity by one
+User.prototype.removeFromCart = async function(productId) {
+  const cart = await Cart.findOne({
+    where: {
+      userId: this.id,
+      productId: productId
+    }
   })
+  cart.quantity--
+  //if cart quantity is now zero, destroy whole row
+  cart.quantity === 0 ? await cart.destroy() : await cart.save()
+}
+
+User.prototype.getCart = async function() {
+  const cart = await Cart.findAll({
+    where: {
+      userId: this.id,
+      complete: false
+    }
+  })
+  return cart
+}
+
+User.prototype.checkout = function() {
+  const cart = this.getCart()
+  cart.forEach(async order => {
+    order.complete = true
+    await order.save()
+  })
+}
+
+User.prototype.getPrevOrders = async function() {
+  const prevOrders = await Cart.findAll({
+    where: {
+      userId: this.id,
+      complete: true
+    }
+  })
+  return prevOrders
 }
 
 User.prototype.correctPassword = function(candidatePwd) {
