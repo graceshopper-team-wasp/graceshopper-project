@@ -96,8 +96,6 @@ async function seed() {
   malika.addToCart(3, 1)
   malika.addToCart(4, 5)
 
-  console.log('nuala', nuala)
-
   await Product.bulkCreate([
     {
       flavor: 'Pike - Frozen Fillet',
