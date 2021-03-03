@@ -1,7 +1,14 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 
-// possible bug am i requiring product from the right place
+router.get('/', async (req, res, next) => {
+  try {
+    const products = await Product.findAll()
+    res.json(products)
+  } catch (err) {
+    next(err)
+  }
+})
 
 // GET /api/product/:id
 router.get('/:id', async (req, res, next) => {
