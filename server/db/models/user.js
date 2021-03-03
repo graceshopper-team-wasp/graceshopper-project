@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 const Cart = require('./cart')
+const Product = require('./product')
 
 const User = db.define('user', {
   firstName: {
@@ -56,7 +57,8 @@ User.prototype.addToCart = async function(productId) {
       }
     })
     if (wasCreated) {
-      cart.quantity = 1
+      cart.quantity++
+      console.log('IN ADDTOCART METHOD', cart.quantity)
     } else {
       cart.increment('quantity')
     }
@@ -79,6 +81,7 @@ User.prototype.removeFromCart = async function(productId) {
   cart.quantity === 0 ? await cart.destroy() : await cart.save()
 }
 
+//getCart finds all rows where userid matches and complete status is false, returns array of products and quantities
 User.prototype.getCart = async function() {
   const cart = await Cart.findAll({
     where: {
@@ -89,14 +92,20 @@ User.prototype.getCart = async function() {
   return cart
 }
 
-User.prototype.checkout = function() {
-  const cart = this.getCart()
-  cart.forEach(async order => {
-    order.complete = true
-    await order.save()
-  })
+//checkout grabs checkout and iterates through changing complete to false
+User.prototype.checkout = async function() {
+  await Cart.update(
+    {complete: true},
+    {
+      where: {
+        userId: this.id,
+        complete: false
+      }
+    }
+  )
 }
 
+//getPrevOrders grabs all cart rows where id matches user id and complete is false, returns array of cart rows
 User.prototype.getPrevOrders = async function() {
   const prevOrders = await Cart.findAll({
     where: {
