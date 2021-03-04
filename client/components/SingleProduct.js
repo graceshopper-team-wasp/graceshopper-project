@@ -7,6 +7,7 @@ class SingleProduct extends React.Component {
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id)
   }
+
   render() {
     const single = this.props.single || {}
     return (
