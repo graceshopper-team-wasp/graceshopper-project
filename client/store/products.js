@@ -1,11 +1,25 @@
 import axios from 'axios'
 
 const SET_PRODUCTS = 'SET_PRODUCTS'
+const ADD_PRODUCT = 'ADD_PRODUCT'
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 export const setProducts = products => ({
   type: SET_PRODUCTS,
   products
 })
+
+export const _addProduct = product => ({
+  type: ADD_PRODUCT,
+  product
+})
+
+export const _deleteProduct = product => {
+  return {
+    type: DELETE_PRODUCT,
+    product
+  }
+}
 
 export const fetchProducts = () => {
   return async dispatch => {
@@ -18,12 +32,41 @@ export const fetchProducts = () => {
   }
 }
 
+export const addProduct = product => {
+  return async dispatch => {
+    try {
+      const added = (await axios.post('/api/products', product)).data
+      dispatch(_addProduct(added))
+    } catch (error) {
+      console.log('error adding product')
+    }
+  }
+}
+
+export const deleteProduct = product => {
+  return async dispatch => {
+    try {
+      const deleted = await axios.delete(`/api/products/${product.id}`)
+      dispatch(_deleteProduct(deleted))
+    } catch (error) {
+      console.log('Error deleting product')
+    }
+  }
+}
 const initialState = []
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return action.products
+    case ADD_PRODUCT:
+      return [...state, action.product]
+    case DELETE_PRODUCT:
+      const copyOfState = [...state]
+      const stateWithoutDeletedCampus = copyOfState.filter(
+        product => product.id !== action.product.data.id
+      )
+      return [...stateWithoutDeletedCampus]
     default:
       return state
   }

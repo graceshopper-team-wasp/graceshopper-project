@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
+import EditProduct from './EditProduct'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -15,6 +16,8 @@ class SingleProduct extends React.Component {
         <h2>Price: ${single.price}</h2>
         <p>{single.description}</p>
         <button>Add To Cart</button>
+        {/* add an if user is admin statement here, only then render edit product  */}
+        <EditProduct />
       </div>
     )
   }
