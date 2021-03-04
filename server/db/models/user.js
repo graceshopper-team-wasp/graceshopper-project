@@ -1,8 +1,9 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
-const Cart = require('./cart')
+const Product_Order = require('./product_order')
 const Product = require('./product')
+const Order = require('./order')
 
 const User = db.define('user', {
   firstName: {
@@ -50,19 +51,22 @@ module.exports = User
 //add to cart finds product/user association or creats, and increments quantity by one
 User.prototype.addToCart = async function(productId) {
   try {
-    const [cart, wasCreated] = await Cart.findOrCreate({
+    const currentOrder = await Order.findOne({
       where: {
         userId: this.id,
-        productId
+        complete: false
       }
     })
-    if (wasCreated) {
-      cart.quantity++
-      console.log('IN ADDTOCART METHOD', cart.quantity)
-    } else {
-      cart.increment('quantity')
+    const [orderItem, wasCreated] = await Product_Order.findOrCreate({
+      where: {
+        orderId: currentOrder.id,
+        productId: productId
+      }
+    })
+    if (!wasCreated) {
+      orderItem.quantity++
+      await orderItem.save()
     }
-    await cart.save()
   } catch (err) {
     console.log(err)
   }
@@ -70,31 +74,44 @@ User.prototype.addToCart = async function(productId) {
 
 //add to cart finds product/user association and decrements quantity by one
 User.prototype.removeFromCart = async function(productId) {
-  const cart = await Cart.findOne({
-    where: {
-      userId: this.id,
-      productId: productId
-    }
-  })
-  cart.quantity--
-  //if cart quantity is now zero, destroy whole row
-  cart.quantity === 0 ? await cart.destroy() : await cart.save()
-}
-
-//getCart finds all rows where userid matches and complete status is false, returns array of products and quantities
-User.prototype.getCart = async function() {
-  const cart = await Cart.findAll({
+  const currentOrder = await Order.findOne({
     where: {
       userId: this.id,
       complete: false
     }
   })
+
+  const orderItem = await Product_Order.findOne({
+    where: {
+      orderId: currentOrder.id,
+      productId: productId
+    }
+  })
+
+  orderItem.quantity--
+  orderItem.quantity === 0 ? await orderItem.destroy() : await orderItem.save()
+}
+
+//getCart finds all rows where userid matches and complete status is false, returns array of products and quantities
+User.prototype.getCart = async function() {
+  const currentOrder = await Order.findOne({
+    where: {
+      userId: this.id,
+      complete: false
+    }
+  })
+  const cart = await Product_Order.findAll({
+    where: {
+      orderId: currentOrder.id
+    }
+  })
+
   return cart
 }
 
 //checkout grabs checkout and iterates through changing complete to false
 User.prototype.checkout = async function() {
-  await Cart.update(
+  await Order.update(
     {complete: true},
     {
       where: {
@@ -107,10 +124,13 @@ User.prototype.checkout = async function() {
 
 //getPrevOrders grabs all cart rows where id matches user id and complete is false, returns array of cart rows
 User.prototype.getPrevOrders = async function() {
-  const prevOrders = await Cart.findAll({
+  const prevOrders = await Order.findAll({
     where: {
       userId: this.id,
       complete: true
+    },
+    include: {
+      model: Product
     }
   })
   return prevOrders

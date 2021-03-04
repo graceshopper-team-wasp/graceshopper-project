@@ -3,7 +3,7 @@
 const {green, red} = require('chalk')
 const {findDOMNode} = require('react-dom')
 const db = require('../server/db')
-const {Product, User, Cart} = require('../server/db/models')
+const {Product, User, Order} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -28,7 +28,13 @@ async function seed() {
       password: 'schweppes'
     }
   ]
-  const [nikki, nuala] = await User.bulkCreate(users, {returning: true})
+  const [nikki, nuala, malika, catherine] = await User.bulkCreate(users, {
+    returning: true
+  })
+
+  const newOrder = await Order.create()
+  newOrder.userId = nikki.id
+  await newOrder.save()
 
   console.log(green('Seeded users'))
 
@@ -80,6 +86,14 @@ async function seed() {
     grapefruit
   ] = await Product.bulkCreate(products, {returning: true})
   console.log(green('Seeded products'))
+
+  await nikki.addToCart(orange.id)
+  await nikki.addToCart(orange.id)
+  await nikki.addToCart(grapefruit.id)
+  const nikkicart = await nikki.getCart()
+  console.log('NIKKI CART', nikkicart.map(item => item.toJSON()))
+  await nikki.checkout()
+  const prevOrders = await nikki.getPrevOrders()
 
   await Product.bulkCreate([
     {

@@ -4,20 +4,19 @@ const {expect} = require('chai')
 const db = require('../index')
 const User = db.model('user')
 const Product = db.model('product')
-const Cart = db.model('cart')
+// const Cart = db.model('cart')
 
 describe('User model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
-  it('has fields firstName, lastName, email, isAdmin, password, salt, orderHistory, googleId', async () => {
+  it('has fields firstName, lastName, email, isAdmin, password, salt, googleId', async () => {
     const user = await User.create({
       firstName: 'user',
       lastName: 'lastName',
       email: 'user@user.com',
       password: '123',
       salt: '123',
-      orderHistory: [],
       googleId: ''
     })
     expect(user.firstName).to.equal('user')
@@ -25,7 +24,6 @@ describe('User model', () => {
     expect(user.email).to.equal('user@user.com')
     expect(user.password('123')).to.equal(user.password('123'))
     expect(user.salt('123')).to.equal(user.salt('123'))
-    expect(user.orderHistory.length).to.be.equal(0)
     expect(user.isAdmin).to.equal(false)
     expect(user.googleId).to.equal('')
   })
