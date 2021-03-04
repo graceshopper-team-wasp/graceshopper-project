@@ -7,11 +7,16 @@ const Product = db.define('product', {
     allowNull: false
   },
   inventory: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   price: {
     type: Sequelize.FLOAT,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 2.0,
+    validate: {
+      min: 0.0
+    }
   },
   description: {
     type: Sequelize.TEXT,
