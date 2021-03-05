@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {getCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -15,6 +16,7 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
+
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
@@ -40,6 +42,7 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
+    dispatch(getCart())
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)

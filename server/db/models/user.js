@@ -97,19 +97,20 @@ User.prototype.removeFromCart = async function(productId) {
 
 //getCart finds all rows where userid matches and complete status is false, returns array of products and quantities
 User.prototype.getCart = async function() {
-  const currentOrder = await Order.findOne({
+  const cart = await Order.findOne({
     where: {
       userId: this.id,
       complete: false
-    }
-  })
-  const cart = await Product_Order.findAll({
-    where: {
-      orderId: currentOrder.id
+    },
+    include: {
+      model: Product,
+      through: {
+        attributes: ['quantity']
+      }
     }
   })
 
-  return cart
+  return cart.products
 }
 
 //checkout grabs checkout and iterates through changing complete to false
@@ -168,6 +169,18 @@ const setSaltAndPassword = user => {
   }
 }
 
+User.afterCreate(async user => {
+  await Order.create({
+    userId: user.id
+  })
+})
+User.afterBulkCreate(users => {
+  users.forEach(async user => {
+    await Order.create({
+      userId: user.id
+    })
+  })
+})
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
