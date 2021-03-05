@@ -32,10 +32,6 @@ async function seed() {
     returning: true
   })
 
-  const newOrder = await Order.create()
-  newOrder.userId = nikki.id
-  await newOrder.save()
-
   console.log(green('Seeded users'))
 
   const products = [
@@ -87,13 +83,8 @@ async function seed() {
   ] = await Product.bulkCreate(products, {returning: true})
   console.log(green('Seeded products'))
 
-  await nikki.addToCart(orange.id)
-  await nikki.addToCart(orange.id)
-  await nikki.addToCart(grapefruit.id)
-  const nikkicart = await nikki.getCart()
-  console.log('NIKKI CART', nikkicart.map(item => item.toJSON()))
-  await nikki.checkout()
-  const prevOrders = await nikki.getPrevOrders()
+  nuala.addToCart(cherry.id)
+  nuala.addToCart(pomegranate.id)
 
   await Product.bulkCreate([
     {

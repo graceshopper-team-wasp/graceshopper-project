@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Product, Order} = require('../db/models')
 const isAdmin = require('../isAdmin')
 
 module.exports = router
@@ -18,13 +18,23 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-//returns user info
-router.get('/:id', async (req, res, next) => {})
+//returns cart
+router.get('/cart', async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const user = await User.findByPk(userId)
+    const cart = await user.getCart()
+    res.send(cart)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //returns prevorders
-router.get('/:id/previousorders', async (req, res, next) => {
+router.get('/previousorders', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id)
+    const userId = req.user.id
+    const user = await User.findByPk(userId)
     const prevOrders = await user.getPrevOrders()
     res.send(prevOrders)
   } catch (err) {
@@ -32,14 +42,44 @@ router.get('/:id/previousorders', async (req, res, next) => {
   }
 })
 
-//returns cart
-router.get('/:id/cart', async (req, res, next) => {})
-
 //adds product to to cart
-router.post('/:id/:productId', async (req, res, next) => {})
+router.post('/:productId', async (req, res, next) => {
+  try {
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      await user.addToCart(req.params.productId)
+      res.sendStatus(200)
+    } else {
+      res.send('hello')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
 //removes product from cart
-router.delete('/:id/:productId', async (req, res, next) => {})
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const user = await User.findByPk(userId)
+    await user.removeFromCart(req.params.productId)
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //checks out cart
-router.put('/:id/checkout', async (req, res, next) => {})
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const user = await User.findByPk(userId)
+    await user.checkout()
+    await Order.create({
+      userId: user.id
+    })
+  } catch (err) {
+    next(err)
+  }
+})
