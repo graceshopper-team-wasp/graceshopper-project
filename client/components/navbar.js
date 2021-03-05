@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, getCart} from '../store'
-
+import {AllUsers} from './AllUsers'
 
 class Navbar extends React.Component {
   componentDidMount() {
@@ -13,7 +13,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const {handleClick, isLoggedIn, cart} = this.props
+    const {handleClick, isLoggedIn, cart, user} = this.props
     //we want the quantity of every item in cart
     //THIS IS A BUG => THIS ONLY WORKS FOR NOT-LOGGED-IN USERS
     //when a user is logged in, we have to access cart.product_orders.quantity, not cart.quantity
@@ -34,6 +34,7 @@ class Navbar extends React.Component {
         <div className="text text-2">t</div>
 
         <nav>
+          {user.isAdmin && <Link to="/users">All Users</Link>}
           {isLoggedIn ? (
             <div>
               {/* The navbar will show these links after you log in */}
@@ -66,7 +67,9 @@ class Navbar extends React.Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
+    user: state.user,
     cart: state.cart
+
   }
 }
 
