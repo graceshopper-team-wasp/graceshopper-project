@@ -9,7 +9,8 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const single = this.props.single || {}
+    const {single, user} = this.props
+    const isAdmin = user.isAdmin
     return (
       <div>
         <img src={single.imageURL} alt={single.flavor} />
@@ -17,8 +18,7 @@ class SingleProduct extends React.Component {
         <h2>Price: ${single.price}</h2>
         <p>{single.description}</p>
         <button>Add To Cart</button>
-        {/* add an if user is admin statement here, only then render edit product  */}
-        <EditProduct />
+        {isAdmin && <EditProduct />}
       </div>
     )
   }
@@ -26,7 +26,8 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    single: state.singleProduct.single
+    single: state.singleProduct.single,
+    user: state.user
   }
 }
 

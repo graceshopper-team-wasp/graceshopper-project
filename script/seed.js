@@ -13,7 +13,8 @@ async function seed() {
   const users = [
     {
       email: 'nikki@teamwasp.com',
-      password: 'lacroix'
+      password: 'lacroix',
+      isAdmin: true
     },
     {
       email: 'nuala@teamwasp.com',

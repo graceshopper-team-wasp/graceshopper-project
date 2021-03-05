@@ -6,17 +6,20 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <div className="text text-1">B</div>
-    <div className="text text-2">u</div>
-    <div className="text text-3">b</div>
-    <div className="text text-4">b</div>
-    <div className="text text-2">l</div>
-    <div className="text text-1">y</div>
-    <div className="text text-2">S</div>
-    <div className="text text-3">o</div>
-    <div className="text text-4">r</div>
-    <div className="text text-2">t</div>
-    {/* <h1 id="title">BubblySort</h1> */}
+    <Link to="/">
+      <div>
+        <div className="text text-1">B</div>
+        <div className="text text-2">u</div>
+        <div className="text text-3">b</div>
+        <div className="text text-4">b</div>
+        <div className="text text-2">l</div>
+        <div className="text text-1">y</div>
+        <div className="text text-2">S</div>
+        <div className="text text-3">o</div>
+        <div className="text text-4">r</div>
+        <div className="text text-2">t</div>
+      </div>
+    </Link>
     <nav>
       {isLoggedIn ? (
         <div>

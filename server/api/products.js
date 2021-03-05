@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
+const isAdmin = require('../isAdmin')
 
 // GET /api/products
 router.get('/', async (req, res, next) => {
@@ -27,7 +28,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // PUT /api/products/:id
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   const {product} = req.body
   try {
     const productInDb = await Product.findByPk(product.id)
@@ -40,7 +41,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //POST /api/products
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     res.status(201).send(await Product.create(req.body))
   } catch (error) {
@@ -50,7 +51,7 @@ router.post('/', async (req, res, next) => {
 })
 
 //DELETE /api/products
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id)
     await product.destroy()
