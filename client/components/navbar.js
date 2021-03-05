@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {AllUsers} from './AllUsers'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = (props, {handleClick, isLoggedIn}) => (
   <div>
     <div className="text text-1">B</div>
     <div className="text text-2">u</div>
@@ -18,6 +19,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <div className="text text-2">t</div>
     {/* <h1 id="title">BubblySort</h1> */}
     <nav>
+      {props.user.isAdmin && <Link to="/users">All Users</Link>}
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
@@ -45,7 +47,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
