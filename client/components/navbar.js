@@ -14,6 +14,8 @@ class Navbar extends React.Component {
   render() {
     const {handleClick, isLoggedIn, cart} = this.props
     //we want the quantity of every item in cart
+    //THIS IS A BUG => THIS ONLY WORKS FOR NOT-LOGGED-IN USERS
+    //when a user is logged in, we have to access cart.product_orders.quantity, not cart.quantity
     const cartQuantity = cart.reduce((accum, current) => {
       return accum + current.quantity
     }, 0)
