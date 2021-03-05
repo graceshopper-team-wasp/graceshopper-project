@@ -10,7 +10,8 @@ export class AllProducts extends React.Component {
   }
 
   render() {
-    const products = this.props.products
+    const {products, user} = this.props
+    const isAdmin = user.isAdmin
     return (
       <div>
         <h3>Products</h3>
@@ -22,18 +23,18 @@ export class AllProducts extends React.Component {
                 <h3>{product.flavor}</h3>
               </Link>
               <p>{product.description}</p>
-              {/* add an isAdmin check  */}
-              <button
-                className="delete_button"
-                onClick={() => this.props.deleteProduct(product)}
-              >
-                X
-              </button>
+              {isAdmin && (
+                <button
+                  className="delete_button"
+                  onClick={() => this.props.deleteProduct(product)}
+                >
+                  X
+                </button>
+              )}
             </li>
           </ul>
         ))}
-        {/* add an isAdmin check  */}
-        <AddProduct />
+        {isAdmin && <AddProduct />}
       </div>
     )
   }
@@ -41,7 +42,8 @@ export class AllProducts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user
   }
 }
 

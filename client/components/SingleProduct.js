@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
+import {addToCart} from '../store/cart'
 import EditProduct from './EditProduct'
 
 class SingleProduct extends React.Component {
@@ -9,16 +10,23 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-    const single = this.props.single || {}
+
+    const {single, user} = this.props
+    const isAdmin = user.isAdmin
+    const addToCart = this.props.addToCart
+
     return (
       <div>
         <img src={single.imageURL} alt={single.flavor} />
         <h1>{single.flavor}</h1>
         <h2>Price: ${single.price}</h2>
         <p>{single.description}</p>
-        <button>Add To Cart</button>
-        {/* add an if user is admin statement here, only then render edit product  */}
-        <EditProduct />
+
+        <button onClick={() => addToCart(single.id)} type="button">
+          Add To Cart
+        </button>
+        {isAdmin && <EditProduct />}
+
       </div>
     )
   }
@@ -26,13 +34,15 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    single: state.singleProduct.single
+    single: state.singleProduct.single,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getSingleProduct: id => dispatch(fetchSingleProduct(id))
+    getSingleProduct: id => dispatch(fetchSingleProduct(id)),
+    addToCart: id => dispatch(addToCart(id))
   }
 }
 
