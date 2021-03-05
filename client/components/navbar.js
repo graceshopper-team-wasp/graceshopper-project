@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, getCart} from '../store'
 
+
 class Navbar extends React.Component {
   componentDidMount() {
     if (this.props.isLoggedIn) {
@@ -31,7 +32,7 @@ class Navbar extends React.Component {
         <div className="text text-3">o</div>
         <div className="text text-4">r</div>
         <div className="text text-2">t</div>
-        {/* <h1 id="title">BubblySort</h1> */}
+
         <nav>
           {isLoggedIn ? (
             <div>

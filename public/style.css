@@ -56,6 +56,8 @@ body {
   -webkit-background-clip: text;
   color: transparent;
   margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   text-shadow: 7px 7px 0px #d2d2d22e;
 }
 
@@ -73,4 +75,156 @@ body {
 
 .text-4 {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%230fd850' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%2320E2D7' flood-opacity='1' x='80px' y='160px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23fbed96' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
+}
+
+/* home page view */
+
+#homeTitle {
+  font-family: 'Modak';
+  font-size: 2em;
+  color: #9370db;
+}
+
+html,
+body,
+#bubbles {
+  height: 100%;
+}
+body {
+  overflow: hidden;
+}
+#bubbles {
+  padding: 100px 0;
+}
+.bubble {
+  width: 60px;
+  height: 60px;
+  background: #ffb200;
+  border-radius: 200px;
+  -moz-border-radius: 200px;
+  -webkit-border-radius: 200px;
+  position: absolute;
+}
+
+.x1 {
+  background: #ff9aa2;
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  transform: scale(0.9);
+  opacity: 0.5;
+  -webkit-animation: moveclouds 15s linear infinite,
+    sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: moveclouds 15s linear infinite,
+    sideWays 4s ease-in-out infinite alternate;
+  -o-animation: moveclouds 15s linear infinite,
+    sideWays 4s ease-in-out infinite alternate;
+}
+
+.x2 {
+  background: #e2f0cb;
+  left: 200px;
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  transform: scale(0.6);
+  opacity: 0.5;
+  -webkit-animation: moveclouds 25s linear infinite,
+    sideWays 5s ease-in-out infinite alternate;
+  -moz-animation: moveclouds 25s linear infinite,
+    sideWays 5s ease-in-out infinite alternate;
+  -o-animation: moveclouds 25s linear infinite,
+    sideWays 5s ease-in-out infinite alternate;
+}
+.x3 {
+  background: #b5ead7;
+  left: 350px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.5;
+  -webkit-animation: moveclouds 20s linear infinite,
+    sideWays 4s ease-in-out infinite alternate;
+  -moz-animation: moveclouds 20s linear infinite,
+    sideWays 4s ease-in-out infinite alternate;
+  -o-animation: moveclouds 20s linear infinite,
+    sideWays 4s ease-in-out infinite alternate;
+}
+.x4 {
+  background: #c7ceea;
+  left: 470px;
+  -webkit-transform: scale(0.75);
+  -moz-transform: scale(0.75);
+  transform: scale(0.75);
+  opacity: 0.5;
+  -webkit-animation: moveclouds 18s linear infinite,
+    sideWays 2s ease-in-out infinite alternate;
+  -moz-animation: moveclouds 18s linear infinite,
+    sideWays 2s ease-in-out infinite alternate;
+  -o-animation: moveclouds 18s linear infinite,
+    sideWays 2s ease-in-out infinite alternate;
+}
+.x5 {
+  left: 150px;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  transform: scale(0.8);
+  opacity: 0.5;
+  -webkit-animation: moveclouds 7s linear infinite,
+    sideWays 1s ease-in-out infinite alternate;
+  -moz-animation: moveclouds 7s linear infinite,
+    sideWays 1s ease-in-out infinite alternate;
+  -o-animation: moveclouds 7s linear infinite,
+    sideWays 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes moveclouds {
+  0% {
+    top: 500px;
+  }
+  100% {
+    top: -500px;
+  }
+}
+
+@-webkit-keyframes sideWays {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 50px;
+  }
+}
+
+@-moz-keyframes moveclouds {
+  0% {
+    top: 500px;
+  }
+
+  100% {
+    top: -500px;
+  }
+}
+
+@-moz-keyframes sideWays {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 50px;
+  }
+}
+@-o-keyframes moveclouds {
+  0% {
+    top: 500px;
+  }
+  100% {
+    top: -500px;
+  }
+}
+
+@-o-keyframes sideWays {
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 50px;
+  }
 }
