@@ -864,13 +864,13 @@ function (_React$Component) {
           single = _this$props.single,
           user = _this$props.user;
       var isAdmin = user.isAdmin;
-      var addToCart = this.props.addToCart;
+      var add = this.props.add;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: single.imageURL,
         alt: single.flavor
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, single.flavor), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Price: $", single.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, single.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: function onClick() {
-          return addToCart(single.id);
+          return add(single.id);
         },
         type: "button"
       }, "Add To Cart"), isAdmin && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_EditProduct__WEBPACK_IMPORTED_MODULE_4__["default"], null));
@@ -892,7 +892,7 @@ var mapDispatch = function mapDispatch(dispatch) {
     getSingleProduct: function getSingleProduct(id) {
       return dispatch(Object(_store_singleProduct__WEBPACK_IMPORTED_MODULE_2__["fetchSingleProduct"])(id));
     },
-    addToCart: function addToCart(id) {
+    add: function add(id) {
       return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_3__["addToCart"])(id));
     }
   };
@@ -1581,7 +1581,7 @@ var getCart = function getCart() {
 
               case 3:
                 res = _context.sent;
-                dispatch(gotCart(res.data || defaultCart));
+                dispatch(gotCart(res.data.id ? res.data : defaultCart));
                 _context.next = 10;
                 break;
 
@@ -1624,40 +1624,39 @@ var addToCart = function addToCart(id) {
 
               case 3:
                 res = _context2.sent;
-                console.log(res);
 
                 if (!(res.data !== 'no user found')) {
-                  _context2.next = 9;
+                  _context2.next = 8;
                   break;
                 }
 
                 dispatch(getCart());
-                _context2.next = 13;
+                _context2.next = 12;
                 break;
 
-              case 9:
-                _context2.next = 11;
+              case 8:
+                _context2.next = 10;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/products/".concat(id));
 
-              case 11:
+              case 10:
                 productRes = _context2.sent;
                 dispatch(_addToCart(productRes.data));
 
-              case 13:
-                _context2.next = 18;
+              case 12:
+                _context2.next = 17;
                 break;
 
-              case 15:
-                _context2.prev = 15;
+              case 14:
+                _context2.prev = 14;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 18:
+              case 17:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 15]]);
+        }, _callee2, null, [[0, 14]]);
       }));
 
       return function (_x2) {
@@ -1707,7 +1706,7 @@ var addToCart = function addToCart(id) {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, getCart, addToCart, getPrevOrders, me, auth, updateUser, logout */
+/*! exports provided: default, me, auth, updateUser, logout, getPrevOrders, getCart, addToCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

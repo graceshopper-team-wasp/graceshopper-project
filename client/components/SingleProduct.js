@@ -10,10 +10,9 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-
     const {single, user} = this.props
     const isAdmin = user.isAdmin
-    const addToCart = this.props.addToCart
+    const add = this.props.add
 
     return (
       <div>
@@ -22,11 +21,10 @@ class SingleProduct extends React.Component {
         <h2>Price: ${single.price}</h2>
         <p>{single.description}</p>
 
-        <button onClick={() => addToCart(single.id)} type="button">
+        <button onClick={() => add(single.id)} type="button">
           Add To Cart
         </button>
         {isAdmin && <EditProduct />}
-
       </div>
     )
   }
@@ -42,7 +40,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: id => dispatch(addToCart(id))
+    add: id => dispatch(addToCart(id))
   }
 }
 

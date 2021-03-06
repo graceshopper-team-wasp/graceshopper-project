@@ -21,14 +21,18 @@ router.get('/', isAdmin, async (req, res, next) => {
 //returns cart
 router.get('/cart', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const user = await User.findByPk(userId)
-    let cart = await user.getCart()
-    cart = cart.map(item => {
-      item.dataValues.quantity = item.dataValues.product_orders.quantity
-      return item
-    })
-    res.send(cart)
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      let cart = await user.getCart()
+      cart = cart.map(item => {
+        item.dataValues.quantity = item.dataValues.product_orders.quantity
+        return item
+      })
+      res.send(cart)
+    } else {
+      res.sendStatus(200)
+    }
   } catch (err) {
     next(err)
   }
@@ -37,20 +41,25 @@ router.get('/cart', async (req, res, next) => {
 //returns prevorders
 router.get('/previousorders', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const user = await User.findByPk(userId)
-    let prevOrders = await user.getPrevOrders()
-    //BELOW is adding a quantity property to the object so it matches the
-    //syntax of a prev orders that is handled on state
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      let prevOrders = await user.getPrevOrders()
+      //BELOW is adding a quantity property to the object so it matches the
+      //syntax of a prev orders that is handled on state
 
-    prevOrders = prevOrders.map(order => {
-      order.dataValues.products = order.dataValues.products.map(product => {
-        product.dataValues.quantity = product.dataValues.product_orders.quantity
-        return product
+      prevOrders = prevOrders.map(order => {
+        order.dataValues.products = order.dataValues.products.map(product => {
+          product.dataValues.quantity =
+            product.dataValues.product_orders.quantity
+          return product
+        })
+        return order
       })
-      return order
-    })
-    res.send(prevOrders)
+      res.send(prevOrders)
+    } else {
+      res.sendStatus(200)
+    }
   } catch (err) {
     next(err)
   }

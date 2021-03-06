@@ -34,7 +34,7 @@ const _addToCart = product => {
 export const getCart = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/cart`)
-    dispatch(gotCart(res.data || defaultCart))
+    dispatch(gotCart(res.data.id ? res.data : defaultCart))
   } catch (err) {
     console.error(err)
   }
@@ -45,7 +45,6 @@ export const getCart = () => async dispatch => {
 export const addToCart = id => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}`)
-    console.log(res)
     if (res.data !== 'no user found') {
       dispatch(getCart())
     } else {
