@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background: #dcf9f9;
 }
 
 a {
@@ -77,8 +78,7 @@ body {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%230fd850' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%2320E2D7' flood-opacity='1' x='80px' y='160px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23fbed96' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
 }
 
-/* home page view */
-
+/* home page view  */
 #homeTitle {
   font-family: 'Modak';
   font-size: 2em;
@@ -90,7 +90,7 @@ body,
 #bubbles {
   height: 100%;
 }
-body {
+#homePage {
   overflow: hidden;
 }
 #bubbles {
@@ -227,4 +227,16 @@ body {
   100% {
     margin-left: 50px;
   }
+}
+
+/* nav bar styling  */
+
+#navbar {
+  display: flex;
+  height: 100px;
+  width: 100%;
+  background-color: #fff0fa;
+  /* background-image: url('https://www.thespruce.com/thmb/QTxXoj3OjBKicss4MDEBmEj0b84=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/soap-bubble-1222472817-f416d71b9d7545e7be40c3d63cd9d761.jpg');
+opacity: .5 */
+  /* background-image: url('https://3ner1e34iilsjdn1qohanunu-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/seltzer_feature.jpg') */
 }
