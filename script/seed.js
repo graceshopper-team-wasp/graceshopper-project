@@ -86,6 +86,7 @@ async function seed() {
 
   nuala.addToCart(cherry.id)
   nuala.addToCart(pomegranate.id)
+  nuala.checkout()
 
   await Product.bulkCreate([
     {

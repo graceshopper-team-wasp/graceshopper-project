@@ -28,6 +28,8 @@ const _addToCart = product => {
   }
 }
 
+//THUNK CREATORS
+
 //gets a cart from databse from logged in user, if there is no logged in user, sets default cart
 export const getCart = () => async dispatch => {
   try {
@@ -63,10 +65,13 @@ export default function(state = defaultCart, action) {
     //if it is, increase quantity by one, if not, add a quantity property and set to one
     case ADD_TO_CART:
       let product = action.product
+      //check to see if product is already on state
       const productAlreadyInState = state.filter(item => item.id === product.id)
+      //if it is, isolate it and increase quantity property by one
       if (productAlreadyInState.length > 0) {
         product = productAlreadyInState[0]
         product.quantity++
+        //return copy of state with previous product replaced by updated one
         const newState = state.map(
           item => (item.id === product.id ? product : item)
         )

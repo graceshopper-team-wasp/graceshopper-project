@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   render() {
-    console.log('in cart render', this.props)
     const cart = this.props.cart
     return (
       <div>

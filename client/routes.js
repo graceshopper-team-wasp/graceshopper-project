@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllProducts} from './components'
 import Cart from './components/Cart'
 import SingleProduct from './components/SingleProduct'
+import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
-
-import {me} from './store'
+import {me, getCart, getPrevOrders} from './store'
 
 /**
  * COMPONENT
@@ -16,6 +16,8 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.loadCart()
+    this.props.loadPrevOrders()
   }
 
   render() {
@@ -32,8 +34,8 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route path="/products/:id" component={SingleProduct} />
+        <Route path="/users" component={AllUsers} />
         <Route path="/cart" component={Cart} />
-
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -63,6 +65,12 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    loadCart() {
+      dispatch(getCart())
+    },
+    loadPrevOrders() {
+      dispatch(getPrevOrders())
     }
   }
 }
