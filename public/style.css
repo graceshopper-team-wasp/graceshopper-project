@@ -240,3 +240,41 @@ body,
 opacity: .5 */
   /* background-image: url('https://3ner1e34iilsjdn1qohanunu-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/seltzer_feature.jpg') */
 }
+
+.previous-orders,
+.order-box > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1em;
+}
+
+.previous-orders > * {
+  margin: 1em;
+}
+
+.order-box {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+}
+
+.order-box img {
+  height: 100px;
+}
+
+.cart-view {
+  margin: 1em 5em 1em 5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cart-item {
+  margin: 1em;
+}
+
+.cart-item img {
+  height: 150px;
+}

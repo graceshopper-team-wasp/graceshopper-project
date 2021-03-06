@@ -8,11 +8,16 @@ class Cart extends React.Component {
     const cart = this.props.cart
     return (
       <div>
-        {cart.map(item => (
-          <h4 key={item.id}>
-            {item.flavor}, quantity: {item.quantity}
-          </h4>
-        ))}
+        <h3>Your cart</h3>
+        <div className="cart-view">
+          {cart.map(item => (
+            <div key={item.id} className="cart-item">
+              <img src={item.imageURL} />
+              <p>{item.flavor}</p>
+              <p>Qty: {item.quantity}</p>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

@@ -100,3 +100,26 @@ router.put('/checkout', async (req, res, next) => {
     next(err)
   }
 })
+
+//put request to edit user information, should only be accessible
+//if user is logged in and matches user on state
+router.put('/', async (req, res, next) => {
+  try {
+    const user = await User.update(
+      {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email
+      },
+      {
+        where: {
+          id: req.user.id
+        },
+        returning: true
+      }
+    )
+    res.send(user[1])
+  } catch (err) {
+    next(err)
+  }
+})

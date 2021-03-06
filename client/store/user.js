@@ -51,6 +51,17 @@ export const auth = (email, password, method) => async dispatch => {
   }
 }
 
+export const updateUser = updates => async dispatch => {
+  try {
+    const res = await axios.put('/api/users', updates)
+    console.log('IN UPDATE USER STORE', res.data)
+    dispatch(getUser(res.data[0]))
+    history.push('/home')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
