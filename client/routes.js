@@ -9,8 +9,8 @@ import SingleProduct from './components/SingleProduct'
 import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
 
+import {me, getCart, getPrevOrders} from './store'
 
-import {me} from './store'
 
 /**
  * COMPONENT
@@ -18,6 +18,8 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.loadCart()
+    this.props.loadPrevOrders()
   }
 
   render() {
@@ -65,6 +67,12 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    loadCart() {
+      dispatch(getCart())
+    },
+    loadPrevOrders() {
+      dispatch(getPrevOrders())
     }
   }
 }

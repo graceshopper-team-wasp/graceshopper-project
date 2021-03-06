@@ -5,14 +5,12 @@ import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   render() {
-    console.log('in cart render', this.props)
     const cart = this.props.cart
     return (
       <div>
         {cart.map(item => (
           <h4 key={item.id}>
-            {item.flavor}, quantity:{' '}
-            {item.product_orders ? item.product_orders.quantity : item.quantity}
+            {item.flavor}, quantity: {item.quantity}
           </h4>
         ))}
       </div>

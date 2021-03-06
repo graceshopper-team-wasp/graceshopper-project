@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, getCart} from '../store'
+
+import {logout, getCart, getPrevOrders} from '../store'
+
 import {AllUsers} from './AllUsers'
 
 class Navbar extends React.Component {
@@ -75,8 +77,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick: () => dispatch(logout()),
-    getCart: () => dispatch(getCart())
+    handleClick: () => dispatch(logout())
   }
 }
 
