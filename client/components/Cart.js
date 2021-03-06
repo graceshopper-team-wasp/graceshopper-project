@@ -10,8 +10,7 @@ class Cart extends React.Component {
       <div>
         {cart.map(item => (
           <h4 key={item.id}>
-            {item.flavor}, quantity:{' '}
-            {item.product_orders ? item.product_orders.quantity : item.quantity}
+            {item.flavor}, quantity: {item.quantity}
           </h4>
         ))}
       </div>
