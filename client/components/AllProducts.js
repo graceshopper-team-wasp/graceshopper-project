@@ -14,15 +14,15 @@ export class AllProducts extends React.Component {
     const isAdmin = user.isAdmin
     return (
       <div>
-        <h3>Products</h3>
-        {products.map(product => (
-          <ul key={product.id}>
-            <li>
+        <h3 id="allSeltzersTitle">All Seltzers</h3>
+        <div className="allProducts">
+          {products.map(product => (
+            <div key={product.id} className="singleProduct">
               <Link to={`/products/${product.id}`}>
                 <img src={product.imageURL} alt={product.flavor} />
-                <h3>{product.flavor}</h3>
+                <p>{product.flavor}</p>
               </Link>
-              <p>{product.description}</p>
+              {/* <p>{product.description}</p> */}
               {isAdmin && (
                 <button
                   className="delete_button"
@@ -31,9 +31,9 @@ export class AllProducts extends React.Component {
                   X
                 </button>
               )}
-            </li>
-          </ul>
-        ))}
+            </div>
+          ))}
+        </div>
         {isAdmin && <AddProduct />}
       </div>
     )

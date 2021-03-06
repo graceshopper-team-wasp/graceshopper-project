@@ -10,23 +10,24 @@ class SingleProduct extends React.Component {
   }
 
   render() {
-
     const {single, user} = this.props
     const isAdmin = user.isAdmin
     const addToCart = this.props.addToCart
 
     return (
       <div>
-        <img src={single.imageURL} alt={single.flavor} />
-        <h1>{single.flavor}</h1>
-        <h2>Price: ${single.price}</h2>
-        <p>{single.description}</p>
+        <div className="singleProductPage">
+          <img src={single.imageURL} alt={single.flavor} />
+          <p id="flavor">{single.flavor}</p>
+          <h2> ${single.price}</h2>
+          <p>{single.description}</p>
 
-        <button onClick={() => addToCart(single.id)} type="button">
-          Add To Cart
-        </button>
-        {isAdmin && <EditProduct />}
+          <button onClick={() => addToCart(single.id)} type="button">
+            Add To Cart
+          </button>
 
+          {isAdmin && <EditProduct />}
+        </div>
       </div>
     )
   }

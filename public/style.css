@@ -1,6 +1,8 @@
 body {
   font-family: sans-serif;
   background: #dcf9f9;
+  font-family: 'Montserrat', sans-serif;
+  color: #444444;
 }
 
 a {
@@ -79,6 +81,26 @@ body {
 }
 
 /* home page view  */
+.homePageText {
+  position: absolute;
+  width: 450px;
+  left: 50%;
+  margin-left: -225px;
+  height: 40px;
+  top: 50%;
+  margin-top: -20px;
+  font-size: 25px;
+}
+
+.homePageText a:visited {
+  color: black;
+}
+
+.react-rotating-text-cursor {
+  opacity: 0%;
+  /* animation: blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s infinite; */
+}
+
 #homeTitle {
   font-family: 'Modak';
   font-size: 2em;
@@ -233,10 +255,92 @@ body,
 
 #navbar {
   display: flex;
+  align-items: center;
+  background-color: #ffc1d2;
+  color: #c0c0c0;
+  display: flex;
+  justify-content: space-between;
   height: 100px;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   width: 100%;
-  background-color: #fff0fa;
-  /* background-image: url('https://www.thespruce.com/thmb/QTxXoj3OjBKicss4MDEBmEj0b84=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/soap-bubble-1222472817-f416d71b9d7545e7be40c3d63cd9d761.jpg');
-opacity: .5 */
-  /* background-image: url('https://3ner1e34iilsjdn1qohanunu-wpengine.netdna-ssl.com/wp-content/uploads/2017/04/seltzer_feature.jpg') */
+}
+
+#right_side_links {
+  padding: 10px;
+  display: flex;
+  text-decoration: none;
+}
+
+#right_side_links h4 {
+  padding: 10px;
+}
+
+/* mobile navbar styling  */
+@media only screen and (max-width: 600px) {
+  .text {
+    height: 30px;
+  }
+}
+
+/* single product styling */
+
+.singleProductPage img {
+  margin: 15px;
+}
+
+#flavor {
+  font-family: Modak;
+  font-size: 36px;
+  color: #444444;
+  margin: 0px;
+}
+
+.singleProductPage p {
+  margin: 8px;
+}
+
+/* add to cart button styling  */
+
+#cart {
+  height: 30px;
+  width: auto;
+}
+
+button {
+  border-radius: 7px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: #923d26;
+  border: 1px #db8a74;
+  background: #fac9b8;
+  transition: 0.4s;
+}
+
+button:hover {
+  background: #923d26;
+  color: #fac9b8;
+}
+
+/* all products styling  */
+
+.allProducts {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.singleProduct {
+  flex: 0 32%;
+  margin: 5px;
+  font-family: Modak;
+  font-size: 20px;
+}
+
+#allSeltzersTitle {
+  font-family: 'Montserrat', sans-serif;
+  height: 30px;
+  margin: 10px;
 }

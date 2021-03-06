@@ -11,7 +11,6 @@ import {Home} from './components/Home'
 
 import {me, getCart, getPrevOrders} from './store'
 
-
 /**
  * COMPONENT
  */
