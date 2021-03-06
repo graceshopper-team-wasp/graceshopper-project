@@ -65,10 +65,11 @@ async function seed() {
       imageURL: 'https://i.imgur.com/wkaJl1V.png'
     },
     {
-      flavor: 'blueberry',
+      flavor: 'peach',
       inventory: 17,
       price: 2.0,
-      description: 'blueberry seltzer'
+      description: 'peach seltzer',
+      imageURL: 'https://i.imgur.com/RPMTVSM.png'
     },
     {
       flavor: 'grapefruit',
