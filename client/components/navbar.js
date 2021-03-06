@@ -21,18 +21,19 @@ class Navbar extends React.Component {
       return accum + current.quantity
     }, 0)
     return (
-      <div>
-        <div className="text text-1">B</div>
-        <div className="text text-2">u</div>
-        <div className="text text-3">b</div>
-        <div className="text text-4">b</div>
-        <div className="text text-2">l</div>
-        <div className="text text-1">y</div>
-        <div className="text text-2">S</div>
-        <div className="text text-3">o</div>
-        <div className="text text-4">r</div>
-        <div className="text text-2">t</div>
-
+      <div id="navbar">
+        <Link to="/">
+          <div className="text text-1">B</div>
+          <div className="text text-2">u</div>
+          <div className="text text-3">b</div>
+          <div className="text text-4">b</div>
+          <div className="text text-2">l</div>
+          <div className="text text-1">y</div>
+          <div className="text text-2">S</div>
+          <div className="text text-3">o</div>
+          <div className="text text-4">r</div>
+          <div className="text text-2">t</div>
+        </Link>
         <nav>
           {user.isAdmin && <Link to="/users">All Users</Link>}
           {isLoggedIn ? (
@@ -55,7 +56,7 @@ class Navbar extends React.Component {
             </div>
           )}
         </nav>
-        <hr />
+        {/* <hr /> */}
       </div>
     )
   }
@@ -69,7 +70,6 @@ const mapState = state => {
     isLoggedIn: !!state.user.id,
     user: state.user,
     cart: state.cart
-
   }
 }
 
