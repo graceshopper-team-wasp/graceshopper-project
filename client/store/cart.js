@@ -6,7 +6,7 @@ import history from '../history'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 // const DELETE_FROM_CART = 'DELETE_FROM_CART'
-// const CHECKOUT = 'CHECKOUT'
+const CHECKOUT = 'CHECKOUT'
 
 //INITIAL STATE
 const defaultCart = []
@@ -25,6 +25,14 @@ const _addToCart = product => {
   return {
     type: ADD_TO_CART,
     product
+  }
+}
+
+//
+const checkedOut = cart => {
+  return {
+    type: CHECKOUT,
+    cart
   }
 }
 
@@ -50,6 +58,23 @@ export const addToCart = id => async dispatch => {
       const productRes = await axios.get(`/api/products/${id}`)
       dispatch(_addToCart(productRes.data))
     }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+//
+export const checkout = id => async dispatch => {
+  try {
+    const res = await axios.put(`/api/users/${id}`)
+    console.log('RES: ', res)
+    dispatch(checkedOut())
+    //   if (res.data !== 'no user found') {
+    //     dispatch(getCart())
+    //   } else {
+    //     const productRes = await axios.get(`/api/products/${id}`)
+    //     dispatch(_addToCart(productRes.data))
+    //   }
   } catch (err) {
     console.error(err)
   }
