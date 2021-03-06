@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
 import {logout, getCart, getPrevOrders} from '../store'
+
 import {AllUsers} from './AllUsers'
 
 class Navbar extends React.Component {
@@ -69,6 +71,7 @@ const mapState = state => {
     isLoggedIn: !!state.user.id,
     user: state.user,
     cart: state.cart
+
   }
 }
 

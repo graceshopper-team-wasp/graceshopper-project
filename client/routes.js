@@ -8,7 +8,9 @@ import Cart from './components/Cart'
 import SingleProduct from './components/SingleProduct'
 import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
+
 import {me, getCart, getPrevOrders} from './store'
+
 
 /**
  * COMPONENT
