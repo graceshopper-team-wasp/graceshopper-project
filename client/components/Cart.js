@@ -15,6 +15,12 @@ class Cart extends React.Component {
             {item.product_orders ? item.product_orders.quantity : item.quantity}
           </h4>
         ))}
+        <br />
+        <Link to="/checkout">
+          <button type="submit" className="checkout">
+            Proceed to Checkout
+          </button>
+        </Link>
       </div>
     )
   }

@@ -6,7 +6,7 @@ import history from '../history'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 // const DELETE_FROM_CART = 'DELETE_FROM_CART'
-// const CHECKOUT = 'CHECKOUT'
+const CHECKOUT = 'CHECKOUT'
 
 //INITIAL STATE
 const defaultCart = []
@@ -28,6 +28,13 @@ const _addToCart = product => {
   }
 }
 
+const checkedOut = cart => {
+  return {
+    type: CHECKOUT,
+    cart
+  }
+}
+
 //gets a cart from databse from logged in user, if there is no logged in user, sets default cart
 export const getCart = () => async dispatch => {
   try {
@@ -45,11 +52,28 @@ export const addToCart = id => async dispatch => {
     const res = await axios.post(`/api/users/${id}`)
     console.log(res)
     if (res.data !== 'no user found') {
+      console.log('in if statement')
       dispatch(getCart())
     } else {
       const productRes = await axios.get(`/api/products/${id}`)
       dispatch(_addToCart(productRes.data))
     }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const checkout = id => async dispatch => {
+  try {
+    const res = await axios.put(`/api/users/${id}`)
+    console.log('RES: ', res)
+    dispatch(checkedOut(res))
+    //   if (res.data !== 'no user found') {
+    //     dispatch(getCart())
+    //   } else {
+    //     const productRes = await axios.get(`/api/products/${id}`)
+    //     dispatch(_addToCart(productRes.data))
+    //   }
   } catch (err) {
     console.error(err)
   }
@@ -75,6 +99,8 @@ export default function(state = defaultCart, action) {
         product.quantity = 1
         return [...state, product]
       }
+    case CHECKOUT:
+      return defaultCart
     default:
       return state
   }

@@ -1,0 +1,125 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import Cart from './Cart'
+import {checkout} from '../store'
+
+export class Checkout extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      address: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault()
+    //   this.props.checkout(this.state)
+    this.setState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      address: ''
+    })
+  }
+
+  render() {
+    const {firstName, lastName, email, address} = this.state
+    const {handleSubmit, handleChange} = this
+    const cart = this.props.cart
+    const user = this.props.user
+
+    const totalQuantity = cart.reduce((accum, currVal) => {
+      return accum + currVal.quantity
+    }, 0)
+
+    const totalPrice = []
+
+    cart.forEach(item => {
+      const totalPricePerItem = item.price * item.quantity
+      totalPrice.push(totalPricePerItem)
+    })
+
+    const finalPrice = totalPrice.reduce((accum, currVal) => {
+      return accum + currVal
+    }, 0)
+
+    console.log('USER', user)
+
+    return (
+      <div>
+        {cart.map(item => (
+          <h4 key={item.id}>
+            {item.flavor}, quantity:{' '}
+            {item.product_orders ? item.product_orders.quantity : item.quantity}
+          </h4>
+        ))}
+
+        <h4>Total Items in Cart: {totalQuantity}</h4>
+        <h4>Total Price: ${finalPrice}</h4>
+        <form id="checkout-form" onSubmit={handleSubmit}>
+          <label htmlFor="firstName">First Name: </label>
+          <input
+            type="text"
+            name="firstName"
+            onChange={handleChange}
+            value={user.id ? user.firstName : firstName}
+          />
+          <br />
+          <label htmlFor="lastName">Last Name: </label>
+          <input
+            type="text"
+            name="lastName"
+            onChange={handleChange}
+            value={user.id ? user.lastName : lastName}
+          />
+          <br />
+          <label htmlFor="email">Email: </label>
+          <input
+            type="text"
+            name="email"
+            onChange={handleChange}
+            value={user.id ? user.email : email}
+          />
+          <br />
+          <label htmlFor="address">Address: </label>
+          <input
+            type="text"
+            name="address"
+            onChange={handleChange}
+            value={address}
+          />
+          <br />
+          <Link to="/confirmation">
+            <button type="submit">Place your order</button>
+          </Link>
+        </form>
+      </div>
+    )
+  }
+}
+
+//   const mapDispatch = dispatch => ({
+//     checkout: () => dispatch(checkout())
+//   })
+
+const mapStateToProps = state => {
+  return {
+    cart: state.cart,
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(Checkout)
