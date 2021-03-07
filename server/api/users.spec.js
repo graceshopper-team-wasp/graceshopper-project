@@ -11,22 +11,24 @@ describe('User routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
+  describe.only('/api/users/', () => {
     const codysEmail = 'cody@puppybook.com'
 
     beforeEach(() => {
       return User.create({
-        email: codysEmail
+        email: codysEmail,
+        password: 'treats'
       })
     })
 
-    it('GET /api/users', async () => {
+    it('GET /api/users is only accessible to admin', async () => {
       const res = await request(app)
         .get('/api/users')
-        .expect(200)
+        .expect(401)
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
+      expect(res.status).to.be.equal(401)
     })
+
+    it('GET /api/')
   }) // end describe('/api/users')
 }) // end describe('User routes')
