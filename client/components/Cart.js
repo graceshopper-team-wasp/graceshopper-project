@@ -6,24 +6,22 @@ import Checkout from './Checkout'
 
 class Cart extends React.Component {
   render() {
-    console.log('in cart render', this.props)
     const cart = this.props.cart
     return (
       <div>
-        {cart.map(item => (
-          <h4 key={item.id}>
-            {item.flavor}, quantity:{' '}
-            {item.product_orders ? item.product_orders.quantity : item.quantity}
-          </h4>
-        ))}
-        <br />
+        <h3>Your cart</h3>
+        <div className="cart-view">
+          {cart.map(item => (
+            <div key={item.id} className="cart-item">
+              <img src={item.imageURL} />
+              <p>{item.flavor}</p>
+              <p>Qty: {item.quantity}</p>
+            </div>
+          ))}
+        </div>
         <Link to="/checkout">
-          <button
-            type="submit"
-            className="checkout"
-            // onClick={() => ()}
-          >
-            Proceed To Checkout
+          <button type="submit" className="checkout">
+            Proceed to Checkout
           </button>
         </Link>
       </div>

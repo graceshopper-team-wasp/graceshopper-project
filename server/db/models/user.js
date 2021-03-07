@@ -25,8 +25,7 @@ const User = db.define('user', {
     defaultValue: false
   },
   password: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -50,7 +49,8 @@ module.exports = User
 
 User.beforeCreate(async user => {
   await Order.create({
-    userId: this.id
+    userId: user.id
+
   })
 })
 
@@ -131,6 +131,9 @@ User.prototype.checkout = async function() {
       }
     }
   )
+  await Order.create({
+    userId: this.id
+  })
 }
 
 //getPrevOrders grabs all cart rows where id matches user id and complete is false, returns array of cart rows
@@ -176,11 +179,12 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.afterCreate(async user => {
+User.afterValidate(async user => {
   await Order.create({
     userId: user.id
   })
 })
+
 User.afterBulkCreate(users => {
   users.forEach(async user => {
     await Order.create({
@@ -188,7 +192,15 @@ User.afterBulkCreate(users => {
     })
   })
 })
-User.beforeCreate(setSaltAndPassword)
+
+User.beforeCreate(user => {
+  if (!user.password() && !user.googleId) {
+    throw new Error('must have password')
+  } else {
+    setSaltAndPassword()
+  }
+})
+
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)

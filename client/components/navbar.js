@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, getCart} from '../store'
+
+import {logout, getCart, getPrevOrders} from '../store'
+
 import {AllUsers} from './AllUsers'
 
 class Navbar extends React.Component {
@@ -21,18 +23,19 @@ class Navbar extends React.Component {
       return accum + current.quantity
     }, 0)
     return (
-      <div>
-        <div className="text text-1">B</div>
-        <div className="text text-2">u</div>
-        <div className="text text-3">b</div>
-        <div className="text text-4">b</div>
-        <div className="text text-2">l</div>
-        <div className="text text-1">y</div>
-        <div className="text text-2">S</div>
-        <div className="text text-3">o</div>
-        <div className="text text-4">r</div>
-        <div className="text text-2">t</div>
-
+      <div id="navbar">
+        <Link to="/">
+          <div className="text text-1">B</div>
+          <div className="text text-2">u</div>
+          <div className="text text-3">b</div>
+          <div className="text text-4">b</div>
+          <div className="text text-2">l</div>
+          <div className="text text-1">y</div>
+          <div className="text text-2">S</div>
+          <div className="text text-3">o</div>
+          <div className="text text-4">r</div>
+          <div className="text text-2">t</div>
+        </Link>
         <nav>
           {user.isAdmin && <Link to="/users">All Users</Link>}
           {isLoggedIn ? (
@@ -40,7 +43,12 @@ class Navbar extends React.Component {
               {/* The navbar will show these links after you log in */}
               <Link to="/home">Home</Link>
               <Link to="/products">Products</Link>
-              <Link to="/cart">Cart ({cartQuantity})</Link>
+              <Link to="/cart">
+                {' '}
+                <img id="cart" src="https://i.imgur.com/XET9X5C.png" />({
+                  cartQuantity
+                })
+              </Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -55,7 +63,7 @@ class Navbar extends React.Component {
             </div>
           )}
         </nav>
-        <hr />
+        {/* <hr /> */}
       </div>
     )
   }
@@ -74,8 +82,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick: () => dispatch(logout()),
-    getCart: () => dispatch(getCart())
+    handleClick: () => dispatch(logout())
   }
 }
 

@@ -10,7 +10,11 @@ import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
 import Checkout from './components/Checkout'
 import Confirmation from './components/Confirmation'
-import {me} from './store'
+
+import EditUser from './components/EditUser'
+
+import {me, getCart, getPrevOrders} from './store'
+
 
 /**
  * COMPONENT
@@ -18,6 +22,8 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.loadCart()
+    this.props.loadPrevOrders()
   }
 
   render() {
@@ -38,10 +44,12 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/confirmation" component={Confirmation} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route exact path="/home" component={UserHome} />
+            <Route path="/home/edit" component={EditUser} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -67,6 +75,12 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    loadCart() {
+      dispatch(getCart())
+    },
+    loadPrevOrders() {
+      dispatch(getPrevOrders())
     }
   }
 }
