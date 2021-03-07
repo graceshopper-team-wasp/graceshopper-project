@@ -53,8 +53,11 @@ export const getCart = () => async dispatch => {
 export const addToCart = id => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}`)
+
+    // if logged in...
     if (res.data !== 'no user found') {
       dispatch(getCart())
+      // if not logged in...
     } else {
       const productRes = await axios.get(`/api/products/${id}`)
       dispatch(_addToCart(productRes.data))
@@ -63,6 +66,7 @@ export const addToCart = id => async dispatch => {
     console.error(err)
   }
 }
+
 
 export const checkout = id => async dispatch => {
   try {
@@ -75,6 +79,7 @@ export const checkout = id => async dispatch => {
     //     const productRes = await axios.get(`/api/products/${id}`)
     //     dispatch(_addToCart(productRes.data))
     //   }
+
   } catch (err) {
     console.error(err)
   }
@@ -104,7 +109,7 @@ export default function(state = defaultCart, action) {
         return [...state, product]
       }
     case CHECKOUT:
-      return defaultCart
+
     default:
       return state
   }

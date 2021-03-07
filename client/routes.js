@@ -10,9 +10,11 @@ import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
 import Checkout from './components/Checkout'
 import Confirmation from './components/Confirmation'
+
 import EditUser from './components/EditUser'
 
 import {me, getCart, getPrevOrders} from './store'
+
 
 /**
  * COMPONENT

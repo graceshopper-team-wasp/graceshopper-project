@@ -33,4 +33,5 @@ export class Confirmation extends React.Component {
 
 // export default connect(mapState, mapDispatch)(Confirmation)
 
+
 export default Confirmation
