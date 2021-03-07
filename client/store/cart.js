@@ -35,11 +35,14 @@ const checkedOut = cart => {
   }
 }
 
+//THUNK CREATORS
+
+
 //gets a cart from databse from logged in user, if there is no logged in user, sets default cart
 export const getCart = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/cart`)
-    dispatch(gotCart(res.data || defaultCart))
+    dispatch(gotCart(res.data.id ? res.data : defaultCart))
   } catch (err) {
     console.error(err)
   }
@@ -50,9 +53,7 @@ export const getCart = () => async dispatch => {
 export const addToCart = id => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}`)
-    console.log(res)
     if (res.data !== 'no user found') {
-      console.log('in if statement')
       dispatch(getCart())
     } else {
       const productRes = await axios.get(`/api/products/${id}`)
@@ -87,10 +88,13 @@ export default function(state = defaultCart, action) {
     //if it is, increase quantity by one, if not, add a quantity property and set to one
     case ADD_TO_CART:
       let product = action.product
+      //check to see if product is already on state
       const productAlreadyInState = state.filter(item => item.id === product.id)
+      //if it is, isolate it and increase quantity property by one
       if (productAlreadyInState.length > 0) {
         product = productAlreadyInState[0]
         product.quantity++
+        //return copy of state with previous product replaced by updated one
         const newState = state.map(
           item => (item.id === product.id ? product : item)
         )
