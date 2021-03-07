@@ -27,8 +27,6 @@ export class Checkout extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     // How to prevent form submission with incomplete info??
-
-=======
     //   this.props.checkout(this.state)
     this.setState({
       firstName: '',
@@ -81,9 +79,7 @@ export class Checkout extends React.Component {
             type="text"
             name="firstName"
             onChange={handleChange}
-
             value={user.id ? user.firstName : firstName}
-
           />
           <br />
           <label htmlFor="lastName">Last Name: </label>
@@ -91,9 +87,7 @@ export class Checkout extends React.Component {
             type="text"
             name="lastName"
             onChange={handleChange}
-
             value={user.id ? user.lastName : lastName}
-
           />
           <br />
           <label htmlFor="email">Email: </label>
@@ -101,9 +95,7 @@ export class Checkout extends React.Component {
             type="text"
             name="email"
             onChange={handleChange}
-
             value={user.id ? user.email : email}
-
           />
           <br />
           <label htmlFor="address">Address: </label>
@@ -131,7 +123,6 @@ const mapStateToProps = state => {
   return {
     cart: state.cart,
     user: state.user
-
   }
 }
 

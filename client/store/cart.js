@@ -37,12 +37,13 @@ const checkedOut = cart => {
 
 //THUNK CREATORS
 
-
-//gets a cart from databse from logged in user, if there is no logged in user, sets default cart
+//gets a cart from databse from logged in user, if there is no logged in user
+//or logged in user's cart is empty, sets default cart
 export const getCart = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/cart`)
-    dispatch(gotCart(res.data.id ? res.data : defaultCart))
+    console.log('GET CART THUNK', res.data)
+    dispatch(gotCart(res.data === 'OK' ? defaultCart : res.data))
   } catch (err) {
     console.error(err)
   }
@@ -57,6 +58,7 @@ export const addToCart = id => async dispatch => {
     // if logged in...
     if (res.data !== 'no user found') {
       dispatch(getCart())
+
       // if not logged in...
     } else {
       const productRes = await axios.get(`/api/products/${id}`)
@@ -66,7 +68,6 @@ export const addToCart = id => async dispatch => {
     console.error(err)
   }
 }
-
 
 export const checkout = id => async dispatch => {
   try {
@@ -79,7 +80,6 @@ export const checkout = id => async dispatch => {
     //     const productRes = await axios.get(`/api/products/${id}`)
     //     dispatch(_addToCart(productRes.data))
     //   }
-
   } catch (err) {
     console.error(err)
   }

@@ -25,6 +25,8 @@ router.get('/cart', async (req, res, next) => {
       const userId = req.user.id
       const user = await User.findByPk(userId)
       let cart = await user.getCart()
+      //adds a quantity value to root object
+      //so cart matches syntax of cart managed on state
       cart = cart.map(item => {
         item.dataValues.quantity = item.dataValues.product_orders.quantity
         return item
