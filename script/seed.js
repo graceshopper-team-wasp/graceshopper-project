@@ -72,10 +72,18 @@ async function seed() {
       imageURL: 'https://i.imgur.com/RPMTVSM.png'
     },
     {
-      flavor: 'grapefruit',
+      flavor: 'strawberry',
       inventory: 31,
       price: 2.0,
-      description: 'grapefruit seltzer'
+      description: 'strawberry seltzer',
+      imageURL: 'https://i.imgur.com/O83l4fx.png'
+    },
+    {
+      flavor: 'just seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'no flavor, just plain seltzer',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     }
   ]
 
@@ -89,9 +97,9 @@ async function seed() {
   ] = await Product.bulkCreate(products, {returning: true})
   console.log(green('Seeded products'))
 
-  nuala.addToCart(cherry.id)
-  nuala.addToCart(pomegranate.id)
-  nuala.checkout()
+  await nuala.addToCart(cherry.id)
+  await nuala.addToCart(pomegranate.id)
+  await nuala.checkout()
 
   //   await Product.bulkCreate([
   //     {
