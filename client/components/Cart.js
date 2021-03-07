@@ -18,6 +18,11 @@ class Cart extends React.Component {
             </div>
           ))}
         </div>
+        <Link to="/checkout">
+          <button type="submit" className="checkout">
+            Proceed to Checkout
+          </button>
+        </Link>
       </div>
     )
   }

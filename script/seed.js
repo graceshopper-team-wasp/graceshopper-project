@@ -25,6 +25,8 @@ async function seed() {
       password: 'bubly'
     },
     {
+      firstName: 'Malika',
+      lastName: 'Abdulina',
       email: 'malika@teamwasp.com',
       password: 'schweppes'
     }

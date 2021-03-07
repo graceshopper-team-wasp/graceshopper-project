@@ -18,7 +18,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-//returns cart
+//returns cart only for logged in users
 router.get('/cart', async (req, res, next) => {
   try {
     if (req.user) {
