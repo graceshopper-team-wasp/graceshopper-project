@@ -5,7 +5,7 @@ import history from '../history'
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-// const DELETE_FROM_CART = 'DELETE_FROM_CART'
+const DELETE_FROM_CART = 'DELETE_FROM_CART'
 const CHECKOUT = 'CHECKOUT'
 
 //INITIAL STATE
@@ -42,8 +42,7 @@ const checkedOut = cart => {
 export const getCart = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/cart`)
-    console.log('GET CART THUNK', res.data)
-    dispatch(gotCart(res.data === 'OK' ? defaultCart : res.data))
+    dispatch(gotCart(res.data === 'no user found' ? defaultCart : res.data))
   } catch (err) {
     console.error(err)
   }
