@@ -344,3 +344,41 @@ button:hover {
   height: 30px;
   margin: 10px;
 }
+
+.previous-orders,
+.order-box > * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1em;
+}
+
+.previous-orders > * {
+  margin: 1em;
+}
+
+.order-box {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+}
+
+.order-box img {
+  height: 100px;
+}
+
+.cart-view {
+  margin: 1em 5em 1em 5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cart-item {
+  margin: 1em;
+}
+
+.cart-item img {
+  height: 150px;
+}

@@ -12,7 +12,7 @@ class SingleProduct extends React.Component {
   render() {
     const {single, user} = this.props
     const isAdmin = user.isAdmin
-    const addToCart = this.props.addToCart
+    const addToCart = this.props.add
 
     return (
       <div>
@@ -43,7 +43,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getSingleProduct: id => dispatch(fetchSingleProduct(id)),
-    addToCart: id => dispatch(addToCart(id))
+    add: id => dispatch(addToCart(id))
   }
 }
 

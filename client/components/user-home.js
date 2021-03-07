@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {getPrevOrders} from '../store/prevOrders'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -10,36 +10,44 @@ export const UserHome = props => {
   const {name, email, prevOrders, cart} = props
 
   return (
-    <div>
-      <h3>Welcome, {name ? name : email}</h3>
+    <div className="user-home-page">
+      <h2>Welcome, {name ? name : email}</h2>
       {prevOrders.length > 0 ? (
-        <div>
+        <div className="previous-orders">
           <h4>Your previous orders:</h4>
-          <ul>
-            {prevOrders.map(order => {
-              return (
-                <div key={order.id}>
-                  <h5>{order.updatedAt}</h5>
-                  <ul>
-                    {order.products.map(product => {
-                      return (
-                        <div key={product.id}>
-                          <h6>{product.flavor}</h6>
-                          <img src={product.imgURL} />
-                          <p>Quantity: {product.quantity}</p>
-                          <p> ${product.price * product.quantity}</p>
-                        </div>
-                      )
-                    })}
-                  </ul>
+
+          {prevOrders.map(order => {
+            let date = `${order.updatedAt.slice(5, 7)}/${order.updatedAt.slice(
+              8,
+              10
+            )}/${order.updatedAt.slice(2, 4)}`
+            let total = order.products.reduce(
+              (accum, current) => accum + current.quantity * current.price,
+              0
+            )
+            return (
+              <div key={order.id} className="order-box">
+                <div className="stats">
+                  <p>{date}</p>
+                  <p>Total: ${total}</p>
                 </div>
-              )
-            })}
-          </ul>
+                {order.products.map(product => {
+                  return (
+                    <div key={product.id}>
+                      <img src={product.imageURL} />
+                      <p>{product.flavor}</p>
+                      <p>Qty: {product.quantity}</p>{' '}
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
         </div>
       ) : (
         ''
       )}
+      <Link to="/home/edit">Edit Profile</Link>
     </div>
   )
 }

@@ -8,6 +8,7 @@ import Cart from './components/Cart'
 import SingleProduct from './components/SingleProduct'
 import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
+import EditUser from './components/EditUser'
 
 import {me, getCart, getPrevOrders} from './store'
 
@@ -40,7 +41,8 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route exact path="/home" component={UserHome} />
+            <Route path="/home/edit" component={EditUser} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
