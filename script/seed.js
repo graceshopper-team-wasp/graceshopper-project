@@ -80,7 +80,7 @@ async function seed() {
       inventory: 31,
       price: 2.0,
       description:
-        "strawberry seltzer Made in BubblySort's one of a kind facility.",
+        "strawberry seltzer Made in BubblySort's one of a kind facility!",
       imageURL: 'https://i.imgur.com/O83l4fx.png'
     },
     {
