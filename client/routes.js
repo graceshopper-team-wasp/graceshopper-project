@@ -15,15 +15,16 @@ import EditUser from './components/EditUser'
 
 import {me, getCart, getPrevOrders} from './store'
 
-
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.loadCart()
-    this.props.loadPrevOrders()
+    if (!this.props.persisted) {
+      this.props.loadCart()
+      this.props.loadPrevOrders()
+    }
   }
 
   render() {
@@ -67,7 +68,8 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
+    persisted: state._persist.rehydrated
   }
 }
 
