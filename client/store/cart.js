@@ -28,6 +28,13 @@ const _addToCart = product => {
   }
 }
 
+const _deleteFromCart = product => {
+  return {
+    type: DELETE_FROM_CART,
+    product
+  }
+}
+
 const checkedOut = cart => {
   return {
     type: CHECKOUT,
@@ -48,9 +55,7 @@ const deletedFromCart = product => {
 export const getCart = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/cart`)
-    console.log('RES: ', res)
-    console.log('RES DATA: ', res.data)
-    dispatch(gotCart(res.data === 'OK' ? defaultCart : res.data))
+    dispatch(gotCart(res.data === 'no user found' ? defaultCart : res.data))
   } catch (err) {
     console.error(err)
   }
@@ -70,6 +75,26 @@ export const addToCart = id => async dispatch => {
     } else {
       const productRes = await axios.get(`/api/products/${id}`)
       dispatch(_addToCart(productRes.data))
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+//if user is logged in, adds cart to database and then dispatches getCart from databse,
+//if user is visitor, manually adds product to cart on state
+export const deleteOneFromCart = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/users/${id}`)
+
+    // if logged in...
+    if (res.data !== 'no user found') {
+      dispatch(getCart())
+
+      // if not logged in...
+    } else {
+      const productRes = await axios.get(`/api/products/${id}`)
+      dispatch(_deleteFromCart(productRes.data))
     }
   } catch (err) {
     console.error(err)
@@ -133,7 +158,17 @@ export default function(state = defaultCart, action) {
         return [...state, product]
       }
     case DELETE_FROM_CART:
-      return state.filter(item => item.id !== action.product.id)
+      // return state.filter(item => item.id !== action.product.id)
+      //we can assume the item is already in the cart because this action is
+      //only availble from cart view
+      product = state.filter(item => item.id === action.product.id)[0]
+      product.quantity--
+      //if this puts quantity to 0, remove it completely
+      const filteredState = state.filter(item => item.id !== product.id)
+      return product.quantity === 0
+        ? filteredState
+        : [...filteredState, product]
+    case CHECKOUT:
 
     default:
       return state

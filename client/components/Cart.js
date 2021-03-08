@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Checkout from './Checkout'
-import {deleteFromCart} from '../store'
+import {addToCart, deleteFromCart} from '../store'
 
 class Cart extends React.Component {
   render() {
-    const cart = this.props.cart
+    const {cart, addOne, deleteOne} = this.props
     return (
       <div>
         <h3>Your cart</h3>
@@ -16,15 +16,23 @@ class Cart extends React.Component {
             <div key={item.id} className="cart-item">
               <img src={item.imageURL} />
               <p>{item.flavor}</p>
-              <p>Qty: {item.quantity}</p>
               <button type="button" onClick={() => this.props.deleteItem(item)}>
                 Delete Item
               </button>
+              <p>
+                <button onClick={() => deleteOne(item.id)} type="buton">
+                  -
+                </button>
+                Qty: {item.quantity}
+                <button onClick={() => addOne(item.id)} type="buton">
+                  +
+                </button>
+              </p>
             </div>
           ))}
         </div>
         <Link to="/checkout">
-          <button type="submit" className="checkout">
+          <button type="submit" className="checkout stylizedButton">
             Proceed to Checkout
           </button>
         </Link>
@@ -33,14 +41,18 @@ class Cart extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  deleteItem: item => dispatch(deleteFromCart(item))
-})
-
 const mapStateToProps = state => {
   return {
     cart: state.cart
   }
 }
 
-export default connect(mapStateToProps, mapDispatch)(Cart)
+const mapDispatchToProps = dispatch => {
+  return {
+    addOne: id => dispatch(addToCart(id)),
+    deleteOne: id => dispatch(deleteFromCart(id)),
+    deleteItem: item => dispatch(deleteFromCart(item))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

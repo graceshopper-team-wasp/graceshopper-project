@@ -42,7 +42,8 @@ async function seed() {
       flavor: 'melon',
       inventory: 16,
       price: 2.0,
-      description: 'melon seltzer',
+      description:
+        'All the delicious flavors of your favorite melons, canteloupe and honeydew, in one drink. Built to keep you hydrated and thinking of summer days. ',
       imageURL: 'https://i.imgur.com/cwxe3Bi.png'
     },
     {
