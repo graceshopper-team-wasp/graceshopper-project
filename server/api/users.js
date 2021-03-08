@@ -33,7 +33,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
-      res.sendStatus(200)
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
