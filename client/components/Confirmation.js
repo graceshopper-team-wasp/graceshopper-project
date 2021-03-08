@@ -2,16 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import checkout from '../store/cart'
+import {getPrevOrders} from '../store/prevOrders'
 
 export class Confirmation extends React.Component {
-  // componentDidMount() {
-  //     this.props.checkout()
-  // }
+  componentDidMount() {
+    this.props.getPrevOrders()
+  }
 
   render() {
     // generate a fake order ID if not logged in
     const orderId = Math.floor(Math.random() * Math.floor(10000))
-    // pull in order ID generated if user is logged in
 
     return (
       <div>
@@ -27,11 +27,8 @@ export class Confirmation extends React.Component {
 //     }
 //   }
 
-//   const mapDispatch = dispatch => ({
-//     checkout: () => dispatch(checkout())
-//   })
+const mapDispatch = dispatch => ({
+  getPrevOrders: () => dispatch(getPrevOrders())
+})
 
-// export default connect(mapState, mapDispatch)(Confirmation)
-
-
-export default Confirmation
+export default connect(null, mapDispatch)(Confirmation)

@@ -123,6 +123,7 @@ router.put('/checkout', async (req, res, next) => {
       const userId = req.user.id
       const user = await User.findByPk(userId)
       await user.checkout()
+      res.sendStatus(200)
     } else {
       res.send('no user found')
     }

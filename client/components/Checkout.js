@@ -111,11 +111,7 @@ export class Checkout extends React.Component {
             <button
               className="stylizedButton"
               type="submit"
-              onClick={() => {
-                cart.forEach(item => {
-                  this.props.deleteItem(item)
-                })
-              }}
+              onClick={() => this.props.checkingOut()}
             >
               Place your order
             </button>
@@ -131,7 +127,6 @@ export class Checkout extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  deleteItem: item => dispatch(deleteFromCart(item)),
   checkingOut: () => dispatch(checkout())
 })
 
