@@ -20,7 +20,7 @@ class Cart extends React.Component {
           ))}
         </div>
         <Link to="/checkout">
-          <button type="submit" className="checkout">
+          <button type="submit" className="checkout stylizedButton">
             Proceed to Checkout
           </button>
         </Link>

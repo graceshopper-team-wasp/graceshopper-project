@@ -1,8 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, deleteProduct} from '../store/products'
+import {addToCart} from '../store/cart'
 import AddProduct from './AddProduct'
 import {Link} from 'react-router-dom'
+import {motion} from 'framer-motion'
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -11,18 +13,45 @@ export class AllProducts extends React.Component {
 
   render() {
     const {products, user} = this.props
+    const addToCart = this.props.add
     const isAdmin = user.isAdmin
     return (
       <div>
         <h3 id="allSeltzersTitle">All Seltzers</h3>
-        <div className="allProducts">
+        <motion.div
+          className="allProducts"
+          initial="pageInitial"
+          animate="pageAnimate"
+          variants={{
+            pageInitial: {
+              opacity: 0
+            },
+            pageAnimate: {
+              opacity: 1
+            }
+          }}
+        >
           {products.map(product => (
             <div key={product.id} className="singleProduct">
               <Link to={`/products/${product.id}`}>
-                <img src={product.imageURL} alt={product.flavor} />
+                <motion.img
+                  src={product.imageURL}
+                  alt={product.flavor}
+                  whileHover={{
+                    scale: 0.8,
+                    transition: {
+                      duration: 0.2
+                    }
+                  }}
+                />
                 <p>{product.flavor}</p>
               </Link>
-              {/* <p>{product.description}</p> */}
+              <button
+                className="stylizedButton"
+                onClick={() => addToCart(product.id)}
+              >
+                Add To Cart
+              </button>
               {isAdmin && (
                 <button
                   className="delete_button"
@@ -33,7 +62,7 @@ export class AllProducts extends React.Component {
               )}
             </div>
           ))}
-        </div>
+        </motion.div>
         {isAdmin && <AddProduct />}
       </div>
     )
@@ -50,7 +79,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
-    deleteProduct: product => dispatch(deleteProduct(product))
+    deleteProduct: product => dispatch(deleteProduct(product)),
+    add: id => dispatch(addToCart(id))
   }
 }
 
