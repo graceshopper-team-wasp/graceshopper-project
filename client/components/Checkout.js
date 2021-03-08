@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Cart from './Cart'
 import {checkout} from '../store'
+import Alert from 'react-bootstrap/Alert'
 
 export class Checkout extends React.Component {
   constructor(props) {
@@ -107,9 +108,15 @@ export class Checkout extends React.Component {
           />
           <br />
           <Link to="/confirmation">
-            <button type="submit">Place your order</button>
+            <button className="stylizedButton" type="submit">
+              Place your order
+            </button>
           </Link>
         </form>
+        <Alert variant="secondary">
+          Sure you don't want any more
+          <Alert.Link href="/products"> seltzer</Alert.Link>?
+        </Alert>
       </div>
     )
   }
