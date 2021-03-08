@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Cart from './Cart'
-import {checkout} from '../store'
+import {checkout, deleteFromCart} from '../store'
+import Alert from 'react-bootstrap/Alert'
 
 export class Checkout extends React.Component {
   constructor(props) {
@@ -107,17 +108,31 @@ export class Checkout extends React.Component {
           />
           <br />
           <Link to="/confirmation">
-            <button type="submit">Place your order</button>
+            <button
+              className="stylizedButton"
+              type="submit"
+              onClick={() => {
+                cart.forEach(item => {
+                  this.props.deleteItem(item)
+                })
+              }}
+            >
+              Place your order
+            </button>
           </Link>
         </form>
+        <Alert variant="secondary">
+          Sure you don't want any more
+          <Alert.Link href="/products"> seltzer</Alert.Link>?
+        </Alert>
       </div>
     )
   }
 }
 
-//   const mapDispatch = dispatch => ({
-//     checkout: () => dispatch(checkout())
-//   })
+const mapDispatch = dispatch => ({
+  deleteItem: item => dispatch(deleteFromCart(item))
+})
 
 const mapStateToProps = state => {
   return {
@@ -126,4 +141,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Checkout)
+export default connect(mapStateToProps, mapDispatch)(Checkout)

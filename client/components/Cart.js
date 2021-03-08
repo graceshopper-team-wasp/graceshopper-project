@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Checkout from './Checkout'
-import {addToCart, deleteOneFromCart} from '../store'
+import {addToCart, deleteOneFromCart, deleteFromCart} from '../store'
 
 class Cart extends React.Component {
   render() {
@@ -16,6 +16,9 @@ class Cart extends React.Component {
             <div key={item.id} className="cart-item">
               <img src={item.imageURL} />
               <p>{item.flavor}</p>
+              <button type="button" onClick={() => this.props.deleteItem(item)}>
+                Delete Item
+              </button>
               <p>
                 <button onClick={() => deleteOne(item.id)} type="button">
                   -
@@ -29,7 +32,7 @@ class Cart extends React.Component {
           ))}
         </div>
         <Link to="/checkout">
-          <button type="submit" className="checkout">
+          <button type="submit" className="checkout stylizedButton">
             Proceed to Checkout
           </button>
         </Link>
@@ -47,7 +50,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addOne: id => dispatch(addToCart(id)),
-    deleteOne: id => dispatch(deleteOneFromCart(id))
+    deleteOne: id => dispatch(deleteOneFromCart(id)),
+    deleteItem: item => dispatch(deleteFromCart(item))
   }
 }
 
