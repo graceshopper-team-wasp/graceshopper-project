@@ -3,6 +3,7 @@ import axios from 'axios'
 const SET_PRODUCTS = 'SET_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
+const FILTER_PRODUCTS = 'FILTER_PRODUCTS'
 
 export const setProducts = products => ({
   type: SET_PRODUCTS,
@@ -18,6 +19,27 @@ export const _deleteProduct = product => {
   return {
     type: DELETE_PRODUCT,
     product
+  }
+}
+
+export const _filterProducts = (products, filter) => {
+  console.log('filter', filter)
+  return {
+    type: FILTER_PRODUCTS,
+    products,
+    filter
+  }
+}
+
+export const filterProducts = filter => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/products')
+      console.log('filter', filter)
+      dispatch(_filterProducts(data, filter))
+    } catch (error) {
+      console.log('Error fetching products from the server')
+    }
   }
 }
 
@@ -67,6 +89,11 @@ export default function(state = initialState, action) {
         product => product.id !== action.product.data.id
       )
       return [...stateWithoutDeletedCampus]
+    case FILTER_PRODUCTS:
+      let filteredProducts = action.products.filter(product =>
+        product.description.includes(action.filter)
+      )
+      return [...filteredProducts]
     default:
       return state
   }

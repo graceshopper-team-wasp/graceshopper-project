@@ -73,45 +73,8 @@ class Navibar extends React.Component {
                             <img
                               className="cart"
                               src="https://i.imgur.com/XET9X5C.png"
-                            />({cartQuantity})
-                          </Popover.Title>
-                          <Popover.Content>
-                            <strong>Holy guacamole!</strong> Check this info.
-                          </Popover.Content>
-                        </Popover>
-                      }
-                    >
-                      <Button variant="secondary">
-                        <img
-                          className="cart"
-                          src="https://i.imgur.com/XET9X5C.png"
-                        />({cartQuantity})
-                      </Button>
-                    </OverlayTrigger>{' '}
-                  </Link>
-                  <a href="#" onClick={handleClick}>
-                    Logout
-                  </a>
-                </div>
-              ) : (
-                <div>
-                  {/* The navbar will show these links before you log in */}
-
-                  <Link to="/login">Login</Link>
-                  <Link to="/signup">Sign Up</Link>
-                  <Link to="/products">Products</Link>
-                  <Link to="/cart">
-                    {' '}
-                    <OverlayTrigger
-                      trigger={['hover', 'focus']}
-                      placement="bottom"
-                      overlay={
-                        <Popover id="popover-positioned-bottom">
-                          <Popover.Title>
-                            <img
-                              className="cart"
-                              src="https://i.imgur.com/XET9X5C.png"
-                            />({cartQuantity})
+                            />
+                            ({cartQuantity})
                           </Popover.Title>
                           <Popover.Content>
                             <div className="cartPopoverView">
@@ -138,7 +101,63 @@ class Navibar extends React.Component {
                         <img
                           className="cart"
                           src="https://i.imgur.com/XET9X5C.png"
-                        />({cartQuantity})
+                        />
+                        ({cartQuantity})
+                      </Button>
+                    </OverlayTrigger>
+                  </Link>
+                  <a href="#" onClick={handleClick}>
+                    Logout
+                  </a>
+                </div>
+              ) : (
+                <div>
+                  {/* The navbar will show these links before you log in */}
+
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Sign Up</Link>
+                  <Link to="/products">Products</Link>
+                  <Link to="/cart">
+                    {' '}
+                    <OverlayTrigger
+                      trigger={['hover', 'focus']}
+                      placement="bottom"
+                      overlay={
+                        <Popover id="popover-positioned-bottom">
+                          <Popover.Title>
+                            <img
+                              className="cart"
+                              src="https://i.imgur.com/XET9X5C.png"
+                            />
+                            ({cartQuantity})
+                          </Popover.Title>
+                          <Popover.Content>
+                            <div className="cartPopoverView">
+                              {cart.map(item => (
+                                <div key={item.id} className="cartPopoverItem">
+                                  <img
+                                    className="popoverImg"
+                                    src={item.imageURL}
+                                  />
+                                  <div>
+                                    <p>{item.flavor}</p>
+                                    <p>Qty: {item.quantity}</p>
+                                  </div>
+                                </div>
+                              ))}
+                              <div>Total Quantity: {totalQuantity}</div>
+                              <div>Total Price: ${finalPrice}</div>
+                            </div>
+                          </Popover.Content>
+                        </Popover>
+                      }
+                    >
+                      <Button variant="secondary">
+                        <img
+                          className="cart"
+                          src="https://i.imgur.com/XET9X5C.png"
+                        />
+                        ({cartQuantity})
                       </Button>
                     </OverlayTrigger>
                   </Link>
