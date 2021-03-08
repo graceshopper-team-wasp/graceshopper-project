@@ -70,6 +70,7 @@ router.get('/previousorders', async (req, res, next) => {
 //adds product to to cart
 router.post('/:productId', async (req, res, next) => {
   try {
+    console.log('REQ USER: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const user = await User.findByPk(userId)
@@ -94,6 +95,18 @@ router.delete('/:productId', async (req, res, next) => {
     } else {
       res.send('no user found')
     }
+  } catch (err) {
+    next(err)
+  }
+})
+
+//removes all of a product from cart
+router.delete('/delete/:productId', async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const user = await User.findByPk(userId)
+    await user.removeFromCart(req.params.productId)
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }

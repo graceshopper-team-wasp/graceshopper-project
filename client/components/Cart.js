@@ -16,6 +16,9 @@ class Cart extends React.Component {
             <div key={item.id} className="cart-item">
               <img src={item.imageURL} />
               <p>{item.flavor}</p>
+              <button type="button" onClick={() => this.props.deleteItem(item)}>
+                Delete Item
+              </button>
               <p>
                 <button onClick={() => deleteOne(item.id)} type="buton">
                   -
@@ -47,7 +50,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addOne: id => dispatch(addToCart(id)),
-    deleteOne: id => dispatch(deleteFromCart(id))
+    deleteOne: id => dispatch(deleteFromCart(id)),
+    deleteItem: item => dispatch(deleteFromCart(item))
   }
 }
 

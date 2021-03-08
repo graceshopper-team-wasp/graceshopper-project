@@ -42,6 +42,12 @@ const checkedOut = cart => {
   }
 }
 
+const deletedFromCart = product => {
+  return {
+    type: DELETE_FROM_CART,
+    product
+  }
+}
 //THUNK CREATORS
 
 //gets a cart from databse from logged in user, if there is no logged in user
@@ -60,7 +66,7 @@ export const getCart = () => async dispatch => {
 export const addToCart = id => async dispatch => {
   try {
     const res = await axios.post(`/api/users/${id}`)
-
+    console.log('RES IN ADDTOCART: ', res)
     // if logged in...
     if (res.data !== 'no user found') {
       dispatch(getCart())
@@ -77,7 +83,7 @@ export const addToCart = id => async dispatch => {
 
 //if user is logged in, adds cart to database and then dispatches getCart from databse,
 //if user is visitor, manually adds product to cart on state
-export const deleteFromCart = id => async dispatch => {
+export const deleteOneFromCart = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/users/${id}`)
 
@@ -97,13 +103,31 @@ export const deleteFromCart = id => async dispatch => {
 
 export const checkout = id => async dispatch => {
   try {
-    const res = await axios.put(`/api/users/${id}`)
-    console.log(res)
-    dispatch(getCart())
-    //   if (res.data !== 'no user found') {
-    //     dispatch(getCart())
+    const res = await axios.put(`/api/users/checkout`)
+    console.log('RES: ', res)
+    // if logged in
+    if (res.data !== 'no user found') {
+      dispatch(getCart())
+    } else {
+      // if not logged in...
+      const productRes = await axios.get(`/api/products/${id}`)
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
 
-    //   }
+export const deleteFromCart = product => async dispatch => {
+  try {
+    // CURRENTLY CAN ONLY HAVE ONE OF THESE UNCOMMENTED AT A TIME
+    // for logged in users...
+    await axios.delete(`/api/users/delete/${product.id}`)
+    dispatch(deletedFromCart(product))
+
+    // CURRENTLY CAN ONLY HAVE ONE OF THESE UNCOMMENTED AT A TIME
+    // for logged out users...
+    // const productRes = await axios.get(`/api/products/${product.id}`)
+    // dispatch(deletedFromCart(productRes.data))
   } catch (err) {
     console.error(err)
   }
@@ -116,6 +140,7 @@ export default function(state = defaultCart, action) {
     //below case: checks to see if product is already in cart,
     //if it is, increase quantity by one, if not, add a quantity property and set to one
     case ADD_TO_CART:
+      console.log('IN ADD TO CART REDUCER')
       let product = action.product
       //check to see if product is already on state
       const productAlreadyInState = state.filter(item => item.id === product.id)
@@ -133,6 +158,7 @@ export default function(state = defaultCart, action) {
         return [...state, product]
       }
     case DELETE_FROM_CART:
+      // return state.filter(item => item.id !== action.product.id)
       //we can assume the item is already in the cart because this action is
       //only availble from cart view
       product = state.filter(item => item.id === action.product.id)[0]

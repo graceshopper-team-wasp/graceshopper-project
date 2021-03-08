@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Product_Orders} = require('../db/models')
 const isAdmin = require('../isAdmin')
 
 // GET /api/products
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
     res.json(product)
   } catch (error) {
     next(error)
-    console.log('error getting single campus from DB')
+    console.log('error getting single product from DB')
   }
 })
 
@@ -36,7 +36,7 @@ router.put('/:id', isAdmin, async (req, res, next) => {
     res.send(updatedProduct)
   } catch (error) {
     next(error)
-    console.log('error updating student in db')
+    console.log('error updating product in db')
   }
 })
 
@@ -61,4 +61,5 @@ router.delete('/:id', isAdmin, async (req, res, next) => {
     console.log('error deleting product from database')
   }
 })
+
 module.exports = router
