@@ -527,12 +527,12 @@ function (_React$Component) {
           onClick: function onClick() {
             return deleteOne(item.id);
           },
-          type: "buton"
+          type: "button"
         }, "-"), "Qty: ", item.quantity, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: function onClick() {
             return addOne(item.id);
           },
-          type: "buton"
+          type: "button"
         }, "+")));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
         to: "/checkout"
@@ -558,7 +558,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_5__["addToCart"])(id));
     },
     deleteOne: function deleteOne(id) {
-      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_5__["deleteFromCart"])(id));
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_5__["deleteOneFromCart"])(id));
     }
   };
 };
@@ -1812,14 +1812,15 @@ socket.on('connect', function () {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: getCart, addToCart, deleteFromCart, checkout, default */
+/*! exports provided: _addToCart, getCart, addToCart, deleteOneFromCart, checkout, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_addToCart", function() { return _addToCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCart", function() { return getCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return addToCart; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFromCart", function() { return deleteFromCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteOneFromCart", function() { return deleteOneFromCart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkout", function() { return checkout; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
@@ -1841,7 +1842,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var GET_CART = 'GET_CART';
 var ADD_TO_CART = 'ADD_TO_CART';
-var DELETE_FROM_CART = 'DELETE_FROM_CART';
+var DELETE_ONE_FROM_CART = 'DELETE_FROM_CART';
 var CHECKOUT = 'CHECKOUT'; //INITIAL STATE
 
 var defaultCart = []; //ACTION CREATOR
@@ -1862,9 +1863,9 @@ var _addToCart = function _addToCart(product) {
   };
 };
 
-var _deleteFromCart = function _deleteFromCart(product) {
+var _deleteOneFromCart = function _deleteOneFromCart(product) {
   return {
-    type: DELETE_FROM_CART,
+    type: DELETE_ONE_FROM_CART,
     product: product
   };
 };
@@ -1984,7 +1985,7 @@ var addToCart = function addToCart(id) {
 }; //if user is logged in, adds cart to database and then dispatches getCart from databse,
 //if user is visitor, manually adds product to cart on state
 
-var deleteFromCart = function deleteFromCart(id) {
+var deleteOneFromCart = function deleteOneFromCart(id) {
   return (
     /*#__PURE__*/
     function () {
@@ -2019,7 +2020,7 @@ var deleteFromCart = function deleteFromCart(id) {
 
               case 10:
                 productRes = _context3.sent;
-                dispatch(_deleteFromCart(productRes.data));
+                dispatch(_deleteOneFromCart(productRes.data));
 
               case 12:
                 _context3.next = 17;
@@ -2111,7 +2112,7 @@ var checkout = function checkout(id) {
 
       if (productAlreadyInState.length > 0) {
         product = productAlreadyInState[0];
-        product.quantity++; //return copy of state with previous product replaced by updated one
+        product.quantity = product.quantity + 1; //return copy of state with previous product replaced by updated one
 
         var newState = state.map(function (item) {
           return item.id === product.id ? product : item;
@@ -2122,7 +2123,7 @@ var checkout = function checkout(id) {
         return [].concat(_toConsumableArray(state), [product]);
       }
 
-    case DELETE_FROM_CART:
+    case DELETE_ONE_FROM_CART:
       //we can assume the item is already in the cart because this action is
       //only availble from cart view
       product = state.filter(function (item) {
@@ -2147,7 +2148,7 @@ var checkout = function checkout(id) {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, updateUser, logout, getPrevOrders, getCart, addToCart, deleteFromCart, checkout */
+/*! exports provided: default, me, auth, updateUser, logout, getPrevOrders, _addToCart, getCart, addToCart, deleteOneFromCart, checkout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2172,11 +2173,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["logout"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_addToCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["_addToCart"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["getCart"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "addToCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["addToCart"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deleteFromCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["deleteFromCart"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "deleteOneFromCart", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["deleteOneFromCart"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "checkout", function() { return _cart__WEBPACK_IMPORTED_MODULE_8__["checkout"]; });
 

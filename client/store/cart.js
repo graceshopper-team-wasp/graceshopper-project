@@ -5,7 +5,7 @@ import history from '../history'
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const DELETE_FROM_CART = 'DELETE_FROM_CART'
+const DELETE_ONE_FROM_CART = 'DELETE_FROM_CART'
 const CHECKOUT = 'CHECKOUT'
 
 //INITIAL STATE
@@ -21,16 +21,16 @@ const gotCart = cart => {
 }
 
 //add to cart manually in state if user is not logged in
-const _addToCart = product => {
+export const _addToCart = product => {
   return {
     type: ADD_TO_CART,
     product
   }
 }
 
-const _deleteFromCart = product => {
+const _deleteOneFromCart = product => {
   return {
-    type: DELETE_FROM_CART,
+    type: DELETE_ONE_FROM_CART,
     product
   }
 }
@@ -77,7 +77,7 @@ export const addToCart = id => async dispatch => {
 
 //if user is logged in, adds cart to database and then dispatches getCart from databse,
 //if user is visitor, manually adds product to cart on state
-export const deleteFromCart = id => async dispatch => {
+export const deleteOneFromCart = id => async dispatch => {
   try {
     const res = await axios.delete(`/api/users/${id}`)
 
@@ -88,7 +88,7 @@ export const deleteFromCart = id => async dispatch => {
       // if not logged in...
     } else {
       const productRes = await axios.get(`/api/products/${id}`)
-      dispatch(_deleteFromCart(productRes.data))
+      dispatch(_deleteOneFromCart(productRes.data))
     }
   } catch (err) {
     console.error(err)
@@ -124,7 +124,7 @@ export default function(state = defaultCart, action) {
       //if it is, isolate it and increase quantity property by one
       if (productAlreadyInState.length > 0) {
         product = productAlreadyInState[0]
-        product.quantity++
+        product.quantity = product.quantity + 1
         //return copy of state with previous product replaced by updated one
         const newState = state.map(
           item => (item.id === product.id ? product : item)
@@ -134,7 +134,7 @@ export default function(state = defaultCart, action) {
         product.quantity = 1
         return [...state, product]
       }
-    case DELETE_FROM_CART:
+    case DELETE_ONE_FROM_CART:
       //we can assume the item is already in the cart because this action is
       //only availble from cart view
       product = state.filter(item => item.id === action.product.id)[0]

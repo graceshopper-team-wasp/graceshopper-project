@@ -1,11 +1,12 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {getCart, addToCart} from './cart'
+import {getCart, addToCart, _addToCart} from './cart'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
+import cartReducer from './cart'
 import history from '../history'
 import {getMaxListeners} from '../../server'
 
@@ -67,14 +68,12 @@ describe('thunk creators', () => {
       expect(actions[0].product).to.be.deep.equal(fakeItem)
     })
 
-    //   it('if product already exists on state, it increases quantity by one', async() => {
-    //     store = mockStore([{flavor: 'cherry', id: 1, quantity: 1}])
-    //     const fakeItem = {flavor: 'cherry', id: 1}
-    //     mockAxios.onPost('/api/users/1').replyOnce(200, 'no user found')
-    //     mockAxios.onGet('/api/products/1').replyOnce(200, fakeItem)
-    //     await store.dispatch(addToCart(1))
-    //     const state = store.getState()
-    //     expect(state[0]).to.be.deep.equal({flavor: 'cherry', id: 1, quantity: 2})
-    //   })
+    it('if product already exists on state, it increases quantity by one', async () => {
+      let state = [{flavor: 'cherry', id: 1, quantity: 1}]
+      const fakeItem = {flavor: 'cherry', id: 1, quantity: 1}
+      expect(
+        cartReducer(state, {type: 'ADD_TO_CART', product: fakeItem})
+      ).to.deep.equal([{flavor: 'cherry', id: 1, quantity: 2}])
+    })
   })
 })
