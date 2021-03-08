@@ -27,6 +27,8 @@ export class Checkout extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     // How to prevent form submission with incomplete info??
+    // Two options: from HTML or some conditional inside of this form
+
     //   this.props.checkout(this.state)
     this.setState({
       firstName: '',

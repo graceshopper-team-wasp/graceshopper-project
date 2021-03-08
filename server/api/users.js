@@ -25,6 +25,9 @@ router.get('/cart', async (req, res, next) => {
       const userId = req.user.id
       const user = await User.findByPk(userId)
       let cart = await user.getCart()
+
+      // Sequelize allows you to access properties of an instance directly (without having to go through dataValues)
+
       //adds a quantity value to root object
       //so cart matches syntax of cart managed on state
       cart = cart.map(item => {
@@ -33,6 +36,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
+      // is there a status code that you could return?
       res.send('no user found')
     }
   } catch (err) {
@@ -49,6 +53,8 @@ router.get('/previousorders', async (req, res, next) => {
       let prevOrders = await user.getPrevOrders()
       //BELOW is adding a quantity property to the object so it matches the
       //syntax of a prev orders that is handled on state
+
+      // let's talk more about this!
 
       prevOrders = prevOrders.map(order => {
         order.dataValues.products = order.dataValues.products.map(product => {

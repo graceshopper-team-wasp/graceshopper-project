@@ -126,8 +126,9 @@ export const deleteFromCart = product => async dispatch => {
       dispatch(deletedFromCart(product))
     } else {
       // for logged out users...
+      // is the below axios call needed?
       const productRes = await axios.get(`/api/products/${product.id}`)
-      dispatch(deletedFromCart(productRes.data))
+      dispatch(deletedFromCart(productRes.data)) // use product here
     }
   } catch (err) {
     console.error(err)
@@ -144,6 +145,7 @@ export default function(state = defaultCart, action) {
       console.log('IN ADD TO CART REDUCER')
       let product = action.product
       //check to see if product is already on state
+      // would the prototype method "find" work better here?
       const productAlreadyInState = state.filter(item => item.id === product.id)
       //if it is, isolate it and increase quantity property by one
       if (productAlreadyInState.length > 0) {

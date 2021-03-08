@@ -31,6 +31,8 @@ export const _filterProducts = (products, filter) => {
   }
 }
 
+// would it be more efficient to filter from the backend?
+// can we use query parameters
 export const filterProducts = filter => {
   return async dispatch => {
     try {
