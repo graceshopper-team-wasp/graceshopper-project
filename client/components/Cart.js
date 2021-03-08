@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Checkout from './Checkout'
+import CartSummary from './CartSummary'
 import {addToCart, deleteOneFromCart, deleteFromCart} from '../store'
 
 class Cart extends React.Component {
@@ -16,26 +17,43 @@ class Cart extends React.Component {
             <div key={item.id} className="cart-item">
               <img src={item.imageURL} />
               <p>{item.flavor}</p>
-              <button type="button" onClick={() => this.props.deleteItem(item)}>
-                Delete Item
-              </button>
               <p>
-                <button onClick={() => deleteOne(item.id)} type="button">
+                <button
+                  className="stylizedButton"
+                  onClick={() => deleteOne(item.id)}
+                  type="button"
+                >
                   -
                 </button>
                 Qty: {item.quantity}
-                <button onClick={() => addOne(item.id)} type="button">
+                <button
+                  className="stylizedButton"
+                  onClick={() => addOne(item.id)}
+                  type="button"
+                >
                   +
                 </button>
               </p>
+              <button
+                type="button"
+                className="stylizedButton"
+                onClick={() => this.props.deleteItem(item)}
+              >
+                Delete Item
+              </button>
             </div>
           ))}
         </div>
-        <Link to="/checkout">
-          <button type="submit" className="checkout stylizedButton">
-            Proceed to Checkout
-          </button>
-        </Link>
+        {cart.length > 0 ? (
+          <CartSummary cart={cart} />
+        ) : (
+          <div>
+            <h4>No items yet!</h4>
+            <Link to="/products">
+              <h5>Start shopping</h5>
+            </Link>
+          </div>
+        )}
       </div>
     )
   }

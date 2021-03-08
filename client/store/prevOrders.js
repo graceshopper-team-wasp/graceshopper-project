@@ -22,7 +22,11 @@ const _gotPrevOrders = orders => {
 export const getPrevOrders = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/previousorders`)
-    dispatch(_gotPrevOrders(res.data))
+    if (res.data === 'no user found') {
+      dispatch(_gotPrevOrders(defaultOrders))
+    } else {
+      dispatch(_gotPrevOrders(res.data))
+    }
   } catch (err) {
     console.error(err)
   }

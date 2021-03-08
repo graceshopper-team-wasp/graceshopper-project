@@ -60,7 +60,7 @@ router.get('/previousorders', async (req, res, next) => {
       })
       res.send(prevOrders)
     } else {
-      res.sendStatus(200)
+      res.sendStatus('no user found')
     }
   } catch (err) {
     next(err)

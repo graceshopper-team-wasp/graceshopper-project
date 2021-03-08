@@ -347,3 +347,14 @@ body,
     flex-direction: column;
   }
 }
+
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-summary div {
+  min-width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
