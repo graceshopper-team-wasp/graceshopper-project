@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Checkout from './Checkout'
+import {deleteFromCart} from '../store'
 
 class Cart extends React.Component {
   render() {
@@ -16,6 +17,9 @@ class Cart extends React.Component {
               <img src={item.imageURL} />
               <p>{item.flavor}</p>
               <p>Qty: {item.quantity}</p>
+              <button type="button" onClick={() => this.props.deleteItem(item)}>
+                Delete Item
+              </button>
             </div>
           ))}
         </div>
@@ -29,10 +33,14 @@ class Cart extends React.Component {
   }
 }
 
+const mapDispatch = dispatch => ({
+  deleteItem: item => dispatch(deleteFromCart(item))
+})
+
 const mapStateToProps = state => {
   return {
     cart: state.cart
   }
 }
 
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps, mapDispatch)(Cart)
