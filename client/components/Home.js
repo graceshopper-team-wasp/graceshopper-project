@@ -5,10 +5,12 @@ import {Link} from 'react-router-dom'
 
 export const Home = () => {
   return (
-    <div>
+    <div id="homePage">
       <div className="homePageText">
-        <p>
-          Come shop our{' '}
+        {/* <p>  */}
+        <div id="one">Come shop our </div>
+
+        <div id="two">
           <ReactRotatingText
             items={[
               'fresh',
@@ -20,18 +22,9 @@ export const Home = () => {
             ]}
           />{' '}
           <Link to="/products">seltzer.</Link>
-        </p>
+        </div>
+        {/* </p> */}
       </div>
-      {/* <div>
-      <p id="homeTitle">come shop our seltzer</p>
-      <div id="bubbles">
-        <div className="bubble x1" />
-        <div className="bubble x2" />
-        <div className="bubble x3" />
-        <div className="bubble x4" />
-        <div className="bubble x5" />
-      </div>
-    </div> */}
     </div>
   )
 }
