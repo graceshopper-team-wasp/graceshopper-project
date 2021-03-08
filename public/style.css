@@ -143,6 +143,8 @@ img {
 #container {
   display: flex;
   justify-content: center;
+  text-align: center;
+  align-content: center;
 }
 
 .singleProductPage {
@@ -160,6 +162,23 @@ img {
   font-size: 36px;
   color: #444444;
   margin: 0px;
+  text-align: center;
+}
+
+#rightSide {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+#rightSide button {
+  width: 150px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 150px;
 }
 
 .singleProductPage p {
@@ -323,5 +342,8 @@ body,
   }
   #two {
     float: none;
+  }
+  .singleProductPage {
+    flex-direction: column;
   }
 }

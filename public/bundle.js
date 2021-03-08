@@ -1185,10 +1185,12 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: single.imageURL,
         alt: single.flavor
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "rightSide"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "flavor"
       }, single.flavor), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " price: $", single.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, single.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "stylizedButton",
+        className: " center stylizedButton",
         onClick: function onClick() {
           return addToCart(single.id);
         },
@@ -1556,8 +1558,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "cart",
           src: "https://i.imgur.com/XET9X5C.png"
-        }), "(", cartQuantity, ")")))))))) //  </div>
-
+        }), "(", cartQuantity, ")"))))))))
       );
     }
   }]);

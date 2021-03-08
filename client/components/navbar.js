@@ -145,11 +145,9 @@ class Navibar extends React.Component {
                 </div>
               )}
             </Nav>
-            {/* <hr /> */}
           </div>
         </Navbar.Collapse>
       </Navbar>
-      //  </div>
     )
   }
 }

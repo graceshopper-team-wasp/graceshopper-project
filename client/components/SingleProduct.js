@@ -31,13 +31,13 @@ class SingleProduct extends React.Component {
         <div id="container">
           <div className="singleProductPage">
             <img src={single.imageURL} alt={single.flavor} />
-            <div>
+            <div id="rightSide">
               <p id="flavor">{single.flavor}</p>
               <p> price: ${single.price}</p>
               <p>{single.description}</p>
 
               <button
-                className="stylizedButton"
+                className=" center stylizedButton"
                 onClick={() => addToCart(single.id)}
                 type="button"
               >
