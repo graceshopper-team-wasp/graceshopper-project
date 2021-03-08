@@ -86,10 +86,14 @@ router.post('/:productId', async (req, res, next) => {
 //removes product from cart
 router.delete('/:productId', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const user = await User.findByPk(userId)
-    await user.removeFromCart(req.params.productId)
-    res.sendStatus(200)
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      await user.removeFromCart(req.params.productId)
+      res.sendStatus(200)
+    } else {
+      res.send('no user found')
+    }
   } catch (err) {
     next(err)
   }
