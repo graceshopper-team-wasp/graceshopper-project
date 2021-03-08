@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navibar} from './components'
-import {Footer} from './components/footer'
+import {Footer} from './components/Footer'
 import Routes from './routes'
 
 const App = () => {
