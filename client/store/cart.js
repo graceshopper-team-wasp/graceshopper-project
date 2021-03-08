@@ -98,13 +98,11 @@ export const deleteFromCart = id => async dispatch => {
 export const checkout = id => async dispatch => {
   try {
     const res = await axios.put(`/api/users/${id}`)
-    console.log('RES: ', res)
-    dispatch(checkedOut(res))
+    console.log(res)
+    dispatch(getCart())
     //   if (res.data !== 'no user found') {
     //     dispatch(getCart())
-    //   } else {
-    //     const productRes = await axios.get(`/api/products/${id}`)
-    //     dispatch(_addToCart(productRes.data))
+
     //   }
   } catch (err) {
     console.error(err)
