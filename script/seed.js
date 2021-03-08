@@ -42,7 +42,7 @@ async function seed() {
       inventory: 16,
       price: 2.0,
       description:
-        "All the delicious flavors of your favorite melons, canteloupe and honeydew, in one drink. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind facility.",
+        "All the delicious flavors of your favorite melons, canteloupe and honeydew, in one drink. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind seltzer facility.",
       imageURL: 'https://i.imgur.com/cwxe3Bi.png'
     },
     {
@@ -87,28 +87,28 @@ async function seed() {
       flavor: 'polar seltzer',
       inventory: 45,
       price: 2.0,
-      description: 'Exclusive partnership with Polar.',
+      description: 'Exclusive partnership with Polar seltzer.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     },
     {
       flavor: 'lacroix seltzer',
       inventory: 45,
       price: 2.0,
-      description: 'Exclusive partnership with LaCroix.',
+      description: 'Exclusive partnership with LaCroix seltzer.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     },
     {
       flavor: 'pellegrino seltzer',
       inventory: 45,
       price: 2.0,
-      description: 'Exclusive partnership with Pellegrino.',
+      description: 'Exclusive partnership with Pellegrino seltzer.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     },
     {
       flavor: 'schweppes seltzer',
       inventory: 45,
       price: 2.0,
-      description: 'Exclusive partnership with Schweppes.',
+      description: 'Exclusive partnership with Schweppes seltzer.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     }
   ]
