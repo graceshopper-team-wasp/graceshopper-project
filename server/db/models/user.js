@@ -115,8 +115,11 @@ User.prototype.getCart = async function() {
       }
     }
   })
-
-  return cart.products
+  if (cart.products.length > 0) {
+    return cart.products
+  } else {
+    return []
+  }
 }
 
 //checkout grabs checkout and iterates through changing complete to false
@@ -178,10 +181,9 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.afterValidate(async user => {
-  await Order.create({
-    userId: user.id
-  })
+User.afterCreate(async user => {
+  const order = await Order.create()
+  user.addOrder(order)
 })
 
 User.afterBulkCreate(users => {
@@ -193,10 +195,10 @@ User.afterBulkCreate(users => {
 })
 
 User.beforeCreate(user => {
-  if (!user.password() && !user.googleId) {
+  if (!user.password && !user.googleId) {
     throw new Error('must have password')
-  } else {
-    setSaltAndPassword()
+  } else if (user.password) {
+    setSaltAndPassword(user)
   }
 })
 

@@ -13,7 +13,7 @@ class SingleProduct extends React.Component {
   render() {
     const {single, user} = this.props
     const isAdmin = user.isAdmin
-    const addToCart = this.props.add
+    const add = this.props.add
 
     return (
       <motion.div
@@ -38,7 +38,7 @@ class SingleProduct extends React.Component {
 
               <button
                 className=" center stylizedButton"
-                onClick={() => addToCart(single.id)}
+                onClick={() => add(single.id)}
                 type="button"
               >
                 Add To Cart
