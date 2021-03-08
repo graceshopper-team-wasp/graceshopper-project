@@ -8,11 +8,29 @@ import {auth, getCart} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
+  const signup = () => {
+    if (name === 'signup') return true
+    else return false
+  }
+  console.log('name', name)
+  console.log(displayName, 'displayName')
+  console.log(signup())
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
+          {signup() && (
+            <div>
+              <label>
+                <small>First Name</small>
+                <input name="firstName" />
+              </label>
+              <label>
+                <small>Last Name</small>
+                <input name="lastName" />
+              </label>
+            </div>
+          )}
           <label htmlFor="email">
             <small>Email</small>
           </label>
@@ -60,11 +78,25 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      if (evt.target.name === 'login') {
+        evt.preventDefault()
+        const formName = evt.target.name
+        const email = evt.target.email.value
+        const password = evt.target.password.value
+        dispatch(auth(email, password, null, null, formName))
+      }
+      if (evt.target.name === 'signup') {
+        console.log('hello')
+        evt.preventDefault()
+        const formName = evt.target.name
+        const email = evt.target.email.value
+        const password = evt.target.password.value
+        const firstName = evt.target.firstName.value
+        const lastName = evt.target.lastName.value
+        console.log('firstName', firstName)
+        console.log('formName', formName)
+        dispatch(auth(email, password, firstName, lastName, formName))
+      }
     }
   }
 }
