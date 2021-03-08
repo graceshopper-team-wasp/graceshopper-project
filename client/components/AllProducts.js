@@ -1,23 +1,38 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts, deleteProduct} from '../store/products'
+import {fetchProducts, deleteProduct, filterProducts} from '../store/products'
 import {addToCart} from '../store/cart'
 import AddProduct from './AddProduct'
 import {Link} from 'react-router-dom'
 import {motion} from 'framer-motion'
 
 export class AllProducts extends React.Component {
+  constructor() {
+    super()
+
+    this.handleDropdownChangeFilter = this.handleDropdownChangeFilter.bind(this)
+  }
   componentDidMount() {
     this.props.getProducts()
   }
-
+  handleDropdownChangeFilter(e) {
+    this.props.filter(e.target.value)
+  }
   render() {
     const {products, user} = this.props
     const addToCart = this.props.add
     const isAdmin = user.isAdmin
     return (
       <div>
-        <h3 id="allSeltzersTitle">All Seltzers</h3>
+        <h3 id="allSeltzersTitle">Seltzers</h3>
+        <select onChange={this.handleDropdownChangeFilter} id="select-filter">
+          <option className="option" value="all">
+            Select Filter
+          </option>
+          <option value="seltzer">All Seltzers</option>
+          <option value="Made">BubblySort</option>
+          <option value="partnership">Partner Brands</option>
+        </select>
         <motion.div
           className="allProducts"
           initial="pageInitial"
@@ -80,7 +95,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
     deleteProduct: product => dispatch(deleteProduct(product)),
-    add: id => dispatch(addToCart(id))
+    add: id => dispatch(addToCart(id)),
+    filter: filter => dispatch(filterProducts(filter))
   }
 }
 

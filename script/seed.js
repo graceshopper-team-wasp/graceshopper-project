@@ -13,8 +13,7 @@ async function seed() {
   const users = [
     {
       email: 'nikki@teamwasp.com',
-      password: 'lacroix',
-      isAdmin: true
+      password: 'lacroix'
     },
     {
       email: 'nuala@teamwasp.com',
@@ -43,49 +42,73 @@ async function seed() {
       inventory: 16,
       price: 2.0,
       description:
-        'All the delicious flavors of your favorite melons, canteloupe and honeydew, in one drink. Built to keep you hydrated and thinking of summer days. ',
+        "All the delicious flavors of your favorite melons, canteloupe and honeydew, in one drink. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind facility.",
       imageURL: 'https://i.imgur.com/cwxe3Bi.png'
     },
     {
       flavor: 'cherry',
       inventory: 20,
       price: 2.0,
-      description: 'cherry seltzer',
+      description:
+        "cherry seltzer Made in BubblySort's one of a kind facility.",
       imageURL: 'https://i.imgur.com/qFugLfS.png'
     },
     {
       flavor: 'grape',
       inventory: 32,
       price: 2.0,
-      description: 'grape seltzer',
+      description: "grape seltzer Made in BubblySort's one of a kind facility.",
       imageURL: 'https://i.imgur.com/Pnsdste.png'
     },
     {
       flavor: 'orange',
       inventory: 22,
       price: 2.0,
-      description: 'orange seltzer',
+      description:
+        "orange seltzer Made in BubblySort's one of a kind facility.",
       imageURL: 'https://i.imgur.com/wkaJl1V.png'
     },
     {
       flavor: 'peach',
       inventory: 17,
       price: 2.0,
-      description: 'peach seltzer',
+      description: "peach seltzer Made in BubblySort's one of a kind facility.",
       imageURL: 'https://i.imgur.com/RPMTVSM.png'
     },
     {
       flavor: 'strawberry',
       inventory: 31,
       price: 2.0,
-      description: 'strawberry seltzer',
+      description:
+        "strawberry seltzer Made in BubblySort's one of a kind facility.",
       imageURL: 'https://i.imgur.com/O83l4fx.png'
     },
     {
-      flavor: 'just seltzer',
+      flavor: 'polar seltzer',
       inventory: 45,
       price: 2.0,
-      description: 'no flavor, just plain seltzer',
+      description: 'Exclusive partnership with Polar.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'lacroix seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with LaCroix.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'pellegrino seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Pellegrino.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'schweppes seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Schweppes.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     }
   ]
