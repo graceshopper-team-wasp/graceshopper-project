@@ -704,6 +704,8 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+var mapDispatchToProps = function mapDispatchToProps(state) {};
+
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(Checkout));
 
 /***/ }),
@@ -1967,12 +1969,9 @@ var checkout = function checkout(id) {
 
               case 3:
                 res = _context3.sent;
-                console.log('RES: ', res);
-                dispatch(checkedOut(res)); //   if (res.data !== 'no user found') {
+                console.log(res);
+                dispatch(getCart()); //   if (res.data !== 'no user found') {
                 //     dispatch(getCart())
-                //   } else {
-                //     const productRes = await axios.get(`/api/products/${id}`)
-                //     dispatch(_addToCart(productRes.data))
                 //   }
 
                 _context3.next = 11;
@@ -2027,7 +2026,6 @@ var checkout = function checkout(id) {
         return [].concat(_toConsumableArray(state), [product]);
       }
 
-    case CHECKOUT:
     default:
       return state;
   }
@@ -2039,7 +2037,7 @@ var checkout = function checkout(id) {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, updateUser, logout, getCart, addToCart, checkout, getPrevOrders */
+/*! exports provided: default, me, auth, updateUser, logout, getPrevOrders, getCart, addToCart, checkout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -47611,7 +47609,7 @@ module.exports = exports['default'];
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
