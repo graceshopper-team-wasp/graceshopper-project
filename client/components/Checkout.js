@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Cart from './Cart'
 import {checkout} from '../store'
+import Alert from 'react-bootstrap/Alert'
 
 export class Checkout extends React.Component {
   constructor(props) {
@@ -28,7 +29,6 @@ export class Checkout extends React.Component {
     evt.preventDefault()
     // How to prevent form submission with incomplete info??
 
-=======
     //   this.props.checkout(this.state)
     this.setState({
       firstName: '',
@@ -81,9 +81,7 @@ export class Checkout extends React.Component {
             type="text"
             name="firstName"
             onChange={handleChange}
-
             value={user.id ? user.firstName : firstName}
-
           />
           <br />
           <label htmlFor="lastName">Last Name: </label>
@@ -91,9 +89,7 @@ export class Checkout extends React.Component {
             type="text"
             name="lastName"
             onChange={handleChange}
-
             value={user.id ? user.lastName : lastName}
-
           />
           <br />
           <label htmlFor="email">Email: </label>
@@ -101,9 +97,7 @@ export class Checkout extends React.Component {
             type="text"
             name="email"
             onChange={handleChange}
-
             value={user.id ? user.email : email}
-
           />
           <br />
           <label htmlFor="address">Address: </label>
@@ -115,9 +109,15 @@ export class Checkout extends React.Component {
           />
           <br />
           <Link to="/confirmation">
-            <button type="submit">Place your order</button>
+            <button className="stylizedButton" type="submit">
+              Place your order
+            </button>
           </Link>
         </form>
+        <Alert variant="secondary">
+          Sure you don't want any more
+          <Alert.Link href="/products"> seltzer</Alert.Link>?
+        </Alert>
       </div>
     )
   }
@@ -131,7 +131,6 @@ const mapStateToProps = state => {
   return {
     cart: state.cart,
     user: state.user
-
   }
 }
 

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {addToCart} from '../store/cart'
 import EditProduct from './EditProduct'
+import {motion} from 'framer-motion'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -15,20 +16,39 @@ class SingleProduct extends React.Component {
     const addToCart = this.props.add
 
     return (
-      <div>
-        <div className="singleProductPage">
-          <img src={single.imageURL} alt={single.flavor} />
-          <p id="flavor">{single.flavor}</p>
-          <h2> ${single.price}</h2>
-          <p>{single.description}</p>
+      <motion.div
+        initial="pageInitial"
+        animate="pageAnimate"
+        variants={{
+          pageInitial: {
+            opacity: 0
+          },
+          pageAnimate: {
+            opacity: 1
+          }
+        }}
+      >
+        <div id="container">
+          <div className="singleProductPage">
+            <img src={single.imageURL} alt={single.flavor} />
+            <div>
+              <p id="flavor">{single.flavor}</p>
+              <p> price: ${single.price}</p>
+              <p>{single.description}</p>
 
-          <button onClick={() => addToCart(single.id)} type="button">
-            Add To Cart
-          </button>
+              <button
+                className="stylizedButton"
+                onClick={() => addToCart(single.id)}
+                type="button"
+              >
+                Add To Cart
+              </button>
+            </div>
 
-          {isAdmin && <EditProduct />}
+            {isAdmin && <EditProduct />}
+          </div>
         </div>
-      </div>
+      </motion.div>
     )
   }
 }

@@ -25,7 +25,7 @@ const User = db.define('user', {
     defaultValue: false
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
@@ -50,7 +50,6 @@ module.exports = User
 User.beforeCreate(async user => {
   await Order.create({
     userId: user.id
-
   })
 })
 
