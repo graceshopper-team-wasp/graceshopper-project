@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import Cart from './Cart'
 import {checkout, deleteFromCart} from '../store'
 import Alert from 'react-bootstrap/Alert'
 
@@ -65,6 +64,7 @@ export class Checkout extends React.Component {
       <div>
         {cart.map(item => (
           <h4 key={item.id}>
+            <img src={item.imageURL} />
             {item.flavor}, quantity:{' '}
             {item.product_orders ? item.product_orders.quantity : item.quantity}
           </h4>
@@ -131,7 +131,8 @@ export class Checkout extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  deleteItem: item => dispatch(deleteFromCart(item))
+  deleteItem: item => dispatch(deleteFromCart(item)),
+  checkingOut: () => dispatch(checkout())
 })
 
 const mapStateToProps = state => {
