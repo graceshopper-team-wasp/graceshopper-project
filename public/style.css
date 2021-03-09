@@ -363,7 +363,7 @@ body,
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-
+}
 .cart-summary {
   display: flex;
   flex-direction: column;
@@ -373,5 +373,9 @@ body,
   min-width: 200px;
   display: flex;
   justify-content: space-between;
+}
 
+/* checkout form validation */
+.error {
+  border: 1px solid red;
 }
