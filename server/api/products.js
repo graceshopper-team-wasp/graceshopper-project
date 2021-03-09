@@ -1,10 +1,27 @@
 const router = require('express').Router()
 const {Product, Product_Orders} = require('../db/models')
 const isAdmin = require('../isAdmin')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 // GET /api/products
 router.get('/', async (req, res, next) => {
   try {
+    console.log('req.query', req.query)
+    if (req.query.filterBy) {
+      if (req.query.filterBy === 'All') {
+        const products = await Product.findAll()
+        res.json(products)
+      }
+      const products = await Product.findAll({
+        where: {
+          description: {
+            [Op.like]: '%' + req.query.filterBy + '%'
+          }
+        }
+      })
+      res.json(products)
+    }
     const products = await Product.findAll()
     res.json(products)
   } catch (err) {

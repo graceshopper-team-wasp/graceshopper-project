@@ -22,21 +22,18 @@ export const _deleteProduct = product => {
   }
 }
 
-export const _filterProducts = (products, filter) => {
-  console.log('filter', filter)
+export const _filterProducts = products => {
   return {
     type: FILTER_PRODUCTS,
-    products,
-    filter
+    products
   }
 }
 
 export const filterProducts = filter => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/products')
-      console.log('filter', filter)
-      dispatch(_filterProducts(data, filter))
+      const {data} = await axios.get(`/api/products?filterBy=${filter}`)
+      dispatch(_filterProducts(data))
     } catch (error) {
       console.log('Error fetching products from the server')
     }
@@ -90,10 +87,10 @@ export default function(state = initialState, action) {
       )
       return [...stateWithoutDeletedCampus]
     case FILTER_PRODUCTS:
-      let filteredProducts = action.products.filter(product =>
-        product.description.includes(action.filter)
-      )
-      return [...filteredProducts]
+      // let filteredProducts = action.products.filter((product) =>
+      //   product.description.includes(action.filter)
+      // )
+      return action.products
     default:
       return state
   }
