@@ -24,8 +24,7 @@ export const getPrevOrders = () => async dispatch => {
   try {
     console.log('IN TRY BLOCK')
     const res = await axios.get(`/api/users/previousorders`)
-    console.log('RES IN PREVORDERS', res)
-    if (res.data === 'no user found') {
+    if (res.status === 404) {
       dispatch(_gotPrevOrders(defaultOrders))
     } else {
       dispatch(_gotPrevOrders(res.data))

@@ -26,8 +26,7 @@ export class Checkout extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    // How to prevent form submission with incomplete info??
-    //   this.props.checkout(this.state)
+
     this.setState({
       firstName: '',
       lastName: '',
@@ -38,6 +37,11 @@ export class Checkout extends React.Component {
 
   render() {
     const {firstName, lastName, email, address} = this.state
+    const isEnabled =
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      email.length > 0 &&
+      address.length > 0
     const {handleSubmit, handleChange} = this
     const cart = this.props.cart
 
@@ -112,6 +116,7 @@ export class Checkout extends React.Component {
               className="stylizedButton"
               type="submit"
               onClick={() => this.props.checkingOut()}
+              disabled={!isEnabled}
             >
               Place your order
             </button>

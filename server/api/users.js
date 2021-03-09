@@ -33,7 +33,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
-      res.send('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -60,7 +60,7 @@ router.get('/previousorders', async (req, res, next) => {
       })
       res.send(prevOrders)
     } else {
-      res.sendStatus('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -70,7 +70,7 @@ router.get('/previousorders', async (req, res, next) => {
 //adds product to to cart
 router.post('/:productId', async (req, res, next) => {
   try {
-    console.log('REQ USER: ', req.user)
+    // console.log('REQ USER: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const user = await User.findByPk(userId)

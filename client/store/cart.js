@@ -125,8 +125,7 @@ export const deleteFromCart = product => async dispatch => {
       dispatch(deletedFromCart(product))
     } else {
       // for logged out users...
-      const productRes = await axios.get(`/api/products/${product.id}`)
-      dispatch(deletedFromCart(productRes.data))
+      dispatch(deletedFromCart(product))
     }
   } catch (err) {
     console.error(err)
