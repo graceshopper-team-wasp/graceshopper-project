@@ -33,7 +33,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
-      res.send('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -60,7 +60,7 @@ router.get('/previousorders', async (req, res, next) => {
       })
       res.send(prevOrders)
     } else {
-      res.sendStatus('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)

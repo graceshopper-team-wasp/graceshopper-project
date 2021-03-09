@@ -6,14 +6,31 @@ import EditProduct from './EditProduct'
 import {motion} from 'framer-motion'
 
 class SingleProduct extends React.Component {
-  componentDidMount() {
-    this.props.getSingleProduct(this.props.match.params.id)
+  constructor() {
+    super()
+    this.state = {
+      isLoading: true
+    }
+  }
+  async componentDidMount() {
+    await this.props.getSingleProduct(this.props.match.params.id)
+    this.setState({isLoading: false})
   }
 
   render() {
     const {single, user} = this.props
     const isAdmin = user.isAdmin
     const add = this.props.add
+    if (
+      this.state.isLoading ||
+      single.id !== Number(this.props.match.params.id)
+    ) {
+      return (
+        <div>
+          <img className="loading-icon" src="/loading.gif" />
+        </div>
+      )
+    }
 
     return (
       <motion.div
