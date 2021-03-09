@@ -110,6 +110,34 @@ async function seed() {
       price: 2.0,
       description: 'Exclusive partnership with Schweppes seltzer.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'polar seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Polar seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'lacroix seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with LaCroix seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'pellegrino seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Pellegrino seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'schweppes seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Schweppes seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     }
   ]
 
