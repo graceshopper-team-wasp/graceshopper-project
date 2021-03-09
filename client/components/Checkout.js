@@ -98,6 +98,7 @@ export class Checkout extends React.Component {
     return !isDisabled
   }
 
+
   // eslint-disable-next-line complexity
   render() {
     const {
@@ -110,6 +111,7 @@ export class Checkout extends React.Component {
       state,
       zipCode
     } = this.state
+
 
     const errors = validate(
       firstName,
@@ -127,6 +129,7 @@ export class Checkout extends React.Component {
       const shouldShow = this.state.touched[field]
       return hasError ? shouldShow : false
     }
+
 
     const {handleSubmit, handleChange} = this
     const cart = this.props.cart
