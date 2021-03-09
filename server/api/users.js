@@ -33,7 +33,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
-      res.send('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -60,7 +60,7 @@ router.get('/previousorders', async (req, res, next) => {
       })
       res.send(prevOrders)
     } else {
-      res.sendStatus(200)
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -70,7 +70,7 @@ router.get('/previousorders', async (req, res, next) => {
 //adds product to to cart
 router.post('/:productId', async (req, res, next) => {
   try {
-    console.log('REQ USER: ', req.user)
+    // console.log('REQ USER: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const user = await User.findByPk(userId)
@@ -103,10 +103,14 @@ router.delete('/:productId', async (req, res, next) => {
 //removes all of a product from cart
 router.delete('/delete/:productId', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const user = await User.findByPk(userId)
-    await user.removeFromCart(req.params.productId)
-    res.sendStatus(200)
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      await user.removeFromCart(req.params.productId)
+      res.sendStatus(200)
+    } else {
+      res.send('no user found')
+    }
   } catch (err) {
     next(err)
   }
@@ -115,9 +119,14 @@ router.delete('/delete/:productId', async (req, res, next) => {
 //checks out cart
 router.put('/checkout', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const user = await User.findByPk(userId)
-    await user.checkout()
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      await user.checkout()
+      res.sendStatus(200)
+    } else {
+      res.send('no user found')
+    }
     //NOTE FROM NUALA: I UPDATED the user instance method to do this.
     // //user always needs an open order, so we create a new order and assign it to user
     // //(order creating automatically has complete being true)

@@ -89,9 +89,9 @@ img {
   margin-top: 20px;
 }
 
-.react-rotating-text-cursor {
+/* .react-rotating-text-cursor {
   opacity: 0%;
-}
+} */
 
 /* nav bar styling  */
 
@@ -357,11 +357,21 @@ body,
     flex-direction: column;
   }
 }
-
 /* signup styling  */
 
 #signUp {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-summary div {
+  min-width: 200px;
+  display: flex;
+  justify-content: space-between;
+
 }

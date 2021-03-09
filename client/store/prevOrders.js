@@ -20,9 +20,15 @@ const _gotPrevOrders = orders => {
 //(we know user is logged in because this is only rendered
 //on a component only visible to logged in user)
 export const getPrevOrders = () => async dispatch => {
+  console.log('IN PREVORDER THUNK')
   try {
+    console.log('IN TRY BLOCK')
     const res = await axios.get(`/api/users/previousorders`)
-    dispatch(_gotPrevOrders(res.data))
+    if (res.status === 404) {
+      dispatch(_gotPrevOrders(defaultOrders))
+    } else {
+      dispatch(_gotPrevOrders(res.data))
+    }
   } catch (err) {
     console.error(err)
   }

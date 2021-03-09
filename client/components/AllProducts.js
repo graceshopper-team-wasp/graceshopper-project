@@ -26,10 +26,10 @@ export class AllProducts extends React.Component {
       <div>
         <h3 id="allSeltzersTitle">Seltzers</h3>
         <select onChange={this.handleDropdownChangeFilter} id="select-filter">
-          <option className="option" value="all">
+          <option className="option" value="All">
             Select Filter
           </option>
-          <option value="seltzer">All Seltzers</option>
+          <option value="All">All Seltzers</option>
           <option value="Made">BubblySort</option>
           <option value="partnership">Partner Brands</option>
         </select>

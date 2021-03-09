@@ -36,10 +36,9 @@ const _deleteOneFromCart = product => {
   }
 }
 
-const checkedOut = cart => {
+const checkedOut = () => {
   return {
-    type: CHECKOUT,
-    cart
+    type: CHECKOUT
   }
 }
 
@@ -102,7 +101,7 @@ export const deleteOneFromCart = id => async dispatch => {
   }
 }
 
-export const checkout = id => async dispatch => {
+export const checkout = () => async dispatch => {
   try {
     const res = await axios.put(`/api/users/checkout`)
     console.log('RES: ', res)
@@ -111,7 +110,7 @@ export const checkout = id => async dispatch => {
       dispatch(getCart())
     } else {
       // if not logged in...
-      const productRes = await axios.get(`/api/products/${id}`)
+      dispatch(checkedOut())
     }
   } catch (err) {
     console.error(err)
@@ -120,15 +119,14 @@ export const checkout = id => async dispatch => {
 
 export const deleteFromCart = product => async dispatch => {
   try {
-    // CURRENTLY CAN ONLY HAVE ONE OF THESE UNCOMMENTED AT A TIME
     // for logged in users...
-    await axios.delete(`/api/users/delete/${product.id}`)
-    dispatch(deletedFromCart(product))
-
-    // CURRENTLY CAN ONLY HAVE ONE OF THESE UNCOMMENTED AT A TIME
-    // for logged out users...
-    // const productRes = await axios.get(`/api/products/${product.id}`)
-    // dispatch(deletedFromCart(productRes.data))
+    const res = await axios.delete(`/api/users/delete/${product.id}`)
+    if (res.data !== 'no user found') {
+      dispatch(deletedFromCart(product))
+    } else {
+      // for logged out users...
+      dispatch(deletedFromCart(product))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -171,7 +169,7 @@ export default function(state = defaultCart, action) {
         ? filteredState
         : [...filteredState, product]
     case CHECKOUT:
-
+      return defaultCart
     default:
       return state
   }
