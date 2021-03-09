@@ -12,7 +12,11 @@ export class Checkout extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      address: ''
+      streetAddress1: '',
+      streetAddress2: '',
+      city: '',
+      state: '',
+      zipCode: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,17 +35,33 @@ export class Checkout extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      address: ''
+      streetAddress1: '',
+      streetAddress2: '',
+      city: '',
+      state: '',
+      zipCode: ''
     })
   }
 
   render() {
-    const {firstName, lastName, email, address} = this.state
+
+    const {
+      firstName,
+      lastName,
+      email,
+      streetAddress1,
+      streetAddress2,
+      city,
+      state,
+      zipCode
+    } = this.state
+
     const isEnabled =
       firstName.length > 0 &&
       lastName.length > 0 &&
       email.length > 0 &&
       address.length > 0
+
     const {handleSubmit, handleChange} = this
     const cart = this.props.cart
 
@@ -79,38 +99,135 @@ export class Checkout extends React.Component {
         <h4>Total Price: ${finalPrice}</h4>
 
         <form id="checkout-form" onSubmit={handleSubmit}>
-          <label htmlFor="firstName">First Name: </label>
-          <input
-            type="text"
-            name="firstName"
-            onChange={handleChange}
-            value={user.id ? user.firstName : firstName}
-          />
-          <br />
-          <label htmlFor="lastName">Last Name: </label>
-          <input
-            type="text"
-            name="lastName"
-            onChange={handleChange}
-            value={user.id ? user.lastName : lastName}
-          />
-          <br />
-          <label htmlFor="email">Email: </label>
-          <input
-            type="text"
-            name="email"
-            onChange={handleChange}
-            value={user.id ? user.email : email}
-          />
-          <br />
-          <label htmlFor="address">Address: </label>
-          <input
-            type="text"
-            name="address"
-            onChange={handleChange}
-            value={address}
-          />
-          <br />
+
+          <div className="shipping">
+            {' '}
+            Shipping Address:
+            <label htmlFor="firstName">First Name: </label>
+            <input
+              type="text"
+              name="firstName"
+              onChange={handleChange}
+              value={user.id ? user.firstName : firstName}
+            />
+            <br />
+            <label htmlFor="lastName">Last Name: </label>
+            <input
+              type="text"
+              name="lastName"
+              onChange={handleChange}
+              value={user.id ? user.lastName : lastName}
+            />
+            <br />
+            <label htmlFor="email">Email: </label>
+            <input
+              type="text"
+              name="email"
+              onChange={handleChange}
+              value={user.id ? user.email : email}
+            />
+            <br />
+            <label htmlFor="streetAddress1">Address Line 1: </label>
+            <input
+              type="text"
+              name="streetAddress1"
+              onChange={handleChange}
+              value={streetAddress1}
+            />
+            <label htmlFor="streetAddress2">Address Line 2: </label>
+            <input
+              type="text"
+              name="streetAddress2"
+              onChange={handleChange}
+              value={streetAddress2}
+            />
+            <label htmlFor="city">City: </label>
+            <input
+              type="text"
+              name="city"
+              onChange={handleChange}
+              value={city}
+            />
+            <label htmlFor="state">State: </label>
+            <input
+              type="text"
+              name="state"
+              onChange={handleChange}
+              value={state}
+            />
+            <label htmlFor="zipCode">Zip Code: </label>
+            <input
+              type="text"
+              name="zipCode"
+              onChange={handleChange}
+              value={zipCode}
+            />
+            <br />
+          </div>
+          <div className="billing">
+            {' '}
+            Billing Address:
+            <label htmlFor="firstName">First Name: </label>
+            <input
+              type="text"
+              name="firstName"
+              onChange={handleChange}
+              value={user.id ? user.firstName : firstName}
+            />
+            <br />
+            <label htmlFor="lastName">Last Name: </label>
+            <input
+              type="text"
+              name="lastName"
+              onChange={handleChange}
+              value={user.id ? user.lastName : lastName}
+            />
+            <br />
+            <label htmlFor="email">Email: </label>
+            <input
+              type="text"
+              name="email"
+              onChange={handleChange}
+              value={user.id ? user.email : email}
+            />
+            <br />
+            <label htmlFor="streetAddress1">Address Line 1: </label>
+            <input
+              type="text"
+              name="streetAddress1"
+              onChange={handleChange}
+              value={streetAddress1}
+            />
+            <label htmlFor="streetAddress2">Address Line 2: </label>
+            <input
+              type="text"
+              name="streetAddress2"
+              onChange={handleChange}
+              value={streetAddress2}
+            />
+            <label htmlFor="city">City: </label>
+            <input
+              type="text"
+              name="city"
+              onChange={handleChange}
+              value={city}
+            />
+            <label htmlFor="state">State: </label>
+            <input
+              type="text"
+              name="state"
+              onChange={handleChange}
+              value={state}
+            />
+            <label htmlFor="zipCode">Zip Code: </label>
+            <input
+              type="text"
+              name="zipCode"
+              onChange={handleChange}
+              value={zipCode}
+            />
+          </div>
+
           <Link to="/confirmation">
             <button
               className="stylizedButton"
