@@ -357,6 +357,12 @@ body,
     flex-direction: column;
   }
 }
+/* signup styling  */
+
+#signUp {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 
 .cart-summary {
   display: flex;
@@ -367,4 +373,5 @@ body,
   min-width: 200px;
   display: flex;
   justify-content: space-between;
+
 }
