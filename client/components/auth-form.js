@@ -12,38 +12,47 @@ const AuthForm = props => {
     if (name === 'signup') return true
     else return false
   }
-  console.log('name', name)
-  console.log(displayName, 'displayName')
-  console.log(signup())
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form id="signUp" onSubmit={handleSubmit} name={name}>
         <div>
           {signup() && (
             <div>
-              <label>
-                <small>First Name</small>
-                <input name="firstName" />
-              </label>
-              <label>
-                <small>Last Name</small>
-                <input name="lastName" />
-              </label>
+              <div>
+                <label>
+                  <small>First Name</small>
+                  <br />
+                  <input name="firstName" />
+                </label>
+              </div>
+              <div>
+                <label>
+                  <small>Last Name</small>
+                  <br />
+                  <input name="lastName" />
+                </label>
+              </div>
             </div>
           )}
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
+          <br />
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <br />
+          <div>
+            <button className="stylizedButton" type="submit">
+              {displayName}
+            </button>
+          </div>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
