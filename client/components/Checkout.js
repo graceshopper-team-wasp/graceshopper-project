@@ -30,8 +30,7 @@ export class Checkout extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    // How to prevent form submission with incomplete info??
-    //   this.props.checkout(this.state)
+
     this.setState({
       firstName: '',
       lastName: '',
@@ -45,6 +44,7 @@ export class Checkout extends React.Component {
   }
 
   render() {
+
     const {
       firstName,
       lastName,
@@ -55,6 +55,13 @@ export class Checkout extends React.Component {
       state,
       zipCode
     } = this.state
+
+    const isEnabled =
+      firstName.length > 0 &&
+      lastName.length > 0 &&
+      email.length > 0 &&
+      address.length > 0
+
     const {handleSubmit, handleChange} = this
     const cart = this.props.cart
 
@@ -92,6 +99,7 @@ export class Checkout extends React.Component {
         <h4>Total Price: ${finalPrice}</h4>
 
         <form id="checkout-form" onSubmit={handleSubmit}>
+
           <div className="shipping">
             {' '}
             Shipping Address:
@@ -219,16 +227,18 @@ export class Checkout extends React.Component {
               value={zipCode}
             />
           </div>
+
+          <Link to="/confirmation">
+            <button
+              className="stylizedButton"
+              type="submit"
+              onClick={() => this.props.checkingOut()}
+              disabled={!isEnabled}
+            >
+              Place your order
+            </button>
+          </Link>
         </form>
-        <Link to="/confirmation">
-          <button
-            className="stylizedButton"
-            type="submit"
-            onClick={() => this.props.checkingOut()}
-          >
-            Place your order
-          </button>
-        </Link>
         <Alert variant="secondary">
           Sure you don't want any more
           <Alert.Link href="/products"> seltzer</Alert.Link>?
