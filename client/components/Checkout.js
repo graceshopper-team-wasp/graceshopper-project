@@ -1,8 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {checkout} from '../store'
+
 import Alert from 'react-bootstrap/Alert'
+import ShippingForm from '../components/ShippingForm'
+import BillingForm from '../components/BillingForm'
+import {checkout} from '../store/cart'
 
 // Validation function: accepts current fields values and return error object
 // 'True' value means INVALID (missing input)
@@ -28,6 +31,7 @@ function validate(
 }
 
 export class Checkout extends React.Component {
+  render() {
   constructor(props) {
     super(props)
     this.state = {
@@ -132,9 +136,8 @@ export class Checkout extends React.Component {
 
 
     const {handleSubmit, handleChange} = this
-    const cart = this.props.cart
 
-    const user = this.props.user
+    const cart = this.props.cart
 
     const totalQuantity = cart.reduce((accum, currVal) => {
       return accum + currVal.quantity
@@ -152,6 +155,28 @@ export class Checkout extends React.Component {
     }, 0)
 
     return (
+
+      <div className="checkout">
+        <div className="cart-summary">
+          <h4>Cart Summary:</h4>
+          <br />
+          {cart.map(item => (
+            <div key={item.id}>
+              <p>
+                <img src={item.imageURL} />
+                {item.flavor} ({item.quantity})
+              </p>
+              <p>${item.price * item.quantity}</p>
+            </div>
+          ))}
+          <p style={{fontWeight: 'bold'}}>Total price: ${finalPrice}</p>
+        </div>
+        <div className="checkout-address-details">
+          <ShippingForm />
+          <BillingForm />
+        </div>
+        <div>
+
       <div>
         {cart.map(item => (
           <h4 key={item.id}>
@@ -327,16 +352,20 @@ export class Checkout extends React.Component {
               className="stylizedButton"
               type="submit"
               onClick={() => this.props.checkingOut()}
+
+              // disabled={!isEnabled}
+
               disabled={!isDisabled}
+
             >
               Place your order
             </button>
           </Link>
-        </form>
-        <Alert variant="secondary">
-          Sure you don't want any more
-          <Alert.Link href="/products"> seltzer</Alert.Link>?
-        </Alert>
+          <Alert variant="secondary">
+            Sure you don't want any more
+            <Alert.Link href="/products"> seltzer</Alert.Link>?
+          </Alert>
+        </div>
       </div>
     )
   }
@@ -348,8 +377,7 @@ const mapDispatch = dispatch => ({
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart,
-    user: state.user
+    cart: state.cart
   }
 }
 

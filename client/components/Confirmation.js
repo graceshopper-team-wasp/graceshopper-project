@@ -1,7 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import checkout from '../store/cart'
 import {getPrevOrders} from '../store/prevOrders'
 
 export class Confirmation extends React.Component {
@@ -20,12 +18,6 @@ export class Confirmation extends React.Component {
     )
   }
 }
-
-// const mapState = state => {
-//     return {
-//       cart: state.cart
-//     }
-//   }
 
 const mapDispatch = dispatch => ({
   getPrevOrders: () => dispatch(getPrevOrders())
