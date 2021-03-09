@@ -43,8 +43,8 @@ export class Checkout extends React.Component {
     })
   }
 
+  // eslint-disable-next-line complexity
   render() {
-
     const {
       firstName,
       lastName,
@@ -60,7 +60,7 @@ export class Checkout extends React.Component {
       firstName.length > 0 &&
       lastName.length > 0 &&
       email.length > 0 &&
-      address.length > 0
+      streetAddress1.length > 0
 
     const {handleSubmit, handleChange} = this
     const cart = this.props.cart
@@ -99,7 +99,6 @@ export class Checkout extends React.Component {
         <h4>Total Price: ${finalPrice}</h4>
 
         <form id="checkout-form" onSubmit={handleSubmit}>
-
           <div className="shipping">
             {' '}
             Shipping Address:
