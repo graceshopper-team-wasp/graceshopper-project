@@ -22,6 +22,7 @@ import {me, getCart, getPrevOrders} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    console.log('isLoggedIn', this.props.isLoggedIn)
     if (!this.props.persisted) {
       this.props.loadCart()
       this.props.loadPrevOrders()
@@ -31,8 +32,6 @@ class Routes extends Component {
   render() {
     const {isLoggedIn, user} = this.props
     const isAdmin = user.isAdmin
-
-    // console.log('isAdmin', isAdmin)
 
     return (
       <Switch>
@@ -46,15 +45,16 @@ class Routes extends Component {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/confirmation" component={Confirmation} />
-        <Route path="/" component={PageNotFound} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
-            <Route path="/home/edit" component={EditUser} />
+            <Route exact path="/home/edit" component={EditUser} />
+            <Route path="/" component={PageNotFound} />
           </Switch>
         )}
+        <Route path="/" component={PageNotFound} />
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

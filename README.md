@@ -16,6 +16,7 @@ Keep track of all your previous orders on your home page, and edit your display 
 
 Filter and search all of our products on our home page - seriously! Do it!
 
-And most importantly, don't forget that all of this is **fake** and you can definitely NOT expect to recieve any seltzer in the mail.
+And most importantly, don't forget that all of this is **fake** and you can definitely NOT expect to receive any seltzer in the mail.
 
 Created by: Catherine Martin, Nikki Mogensen, Malika Abdulina, and Nuala O'Donovan
+Using: Node.js, Express, React, Redux, PostgreSQL, Bootstrap, Oauth, and Heroku
