@@ -9,6 +9,7 @@ import SingleProduct from './components/SingleProduct'
 import AllUsers from './components/AllUsers'
 import {Home} from './components/Home'
 import Checkout from './components/Checkout'
+import PageNotFound from './components/PageNotFound'
 import Confirmation from './components/Confirmation'
 
 import EditUser from './components/EditUser'
@@ -21,6 +22,7 @@ import {me, getCart, getPrevOrders} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    console.log('isLoggedIn', this.props.isLoggedIn)
     if (!this.props.persisted) {
       this.props.loadCart()
       this.props.loadPrevOrders()
@@ -31,28 +33,28 @@ class Routes extends Component {
     const {isLoggedIn, user} = this.props
     const isAdmin = user.isAdmin
 
-    // console.log('isAdmin', isAdmin)
-
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
-        <Route path="/products/:id" component={SingleProduct} />
-        <Route path="/users" component={AllUsers} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/confirmation" component={Confirmation} />
+        <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/users" component={AllUsers} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/confirmation" component={Confirmation} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
-            <Route path="/home/edit" component={EditUser} />
+            <Route exact path="/home/edit" component={EditUser} />
+            <Route path="/" component={PageNotFound} />
           </Switch>
         )}
+        <Route path="/" component={PageNotFound} />
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>

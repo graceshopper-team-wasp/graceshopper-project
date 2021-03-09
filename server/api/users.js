@@ -77,7 +77,7 @@ router.post('/:productId', async (req, res, next) => {
       await user.addToCart(req.params.productId)
       res.sendStatus(200)
     } else {
-      res.send('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -93,7 +93,7 @@ router.delete('/:productId', async (req, res, next) => {
       await user.removeFromCart(req.params.productId)
       res.sendStatus(200)
     } else {
-      res.send('no user found')
+      res.sendStates(404)
     }
   } catch (err) {
     next(err)
@@ -109,7 +109,7 @@ router.delete('/delete/:productId', async (req, res, next) => {
       await user.removeFromCart(req.params.productId)
       res.sendStatus(200)
     } else {
-      res.send('no user found')
+      res.sendStatus(404)
     }
   } catch (err) {
     next(err)
@@ -125,7 +125,7 @@ router.put('/checkout', async (req, res, next) => {
       await user.checkout()
       res.sendStatus(200)
     } else {
-      res.send('no user found')
+      res.sendStatus(404)
     }
     //NOTE FROM NUALA: I UPDATED the user instance method to do this.
     // //user always needs an open order, so we create a new order and assign it to user
