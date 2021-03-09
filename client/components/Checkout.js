@@ -1,9 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {checkout, deleteFromCart} from '../store'
+import {checkout} from '../store'
 import Alert from 'react-bootstrap/Alert'
+
+// Validation function: accepts current fields values and return error object
+// 'True' value means INVALID (missing input)
+// eslint-disable-next-line max-params
+function validate(
+  firstName,
+  lastName,
+  email,
+  streetAddress1,
+  city,
+  state,
+  zipCode
+) {
+  return {
+    firstName: firstName.length === 0,
+    lastName: lastName.length === 0,
+    email: email.length === 0,
+    streetAddress1: streetAddress1.length === 0,
+    city: city.length === 0,
+    state: state.length === 0,
+    zipCode: zipCode.length === 0
+  }
+}
 
 export class Checkout extends React.Component {
   constructor(props) {
@@ -16,7 +38,17 @@ export class Checkout extends React.Component {
       streetAddress2: '',
       city: '',
       state: '',
-      zipCode: ''
+      zipCode: '',
+
+      touched: {
+        firstName: false,
+        lastName: false,
+        email: false,
+        streetAddress1: false,
+        city: false,
+        state: false,
+        zipCode: false
+      }
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,9 +60,17 @@ export class Checkout extends React.Component {
     })
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault()
+  handleBlur = field => evt => {
+    this.setState({
+      touched: {...this.state.touched, [field]: true}
+    })
+  }
 
+  handleSubmit(evt) {
+    if (!this.canBeSubmitted()) {
+      evt.preventDefault()
+      return
+    }
     this.setState({
       firstName: '',
       lastName: '',
@@ -42,6 +82,22 @@ export class Checkout extends React.Component {
       zipCode: ''
     })
   }
+
+  canBeSubmitted() {
+    const errors = validate(
+      this.state.email,
+      this.state.password,
+      this.state.email,
+      this.state.streetAddress1,
+      this.state.city,
+      this.state.state,
+      this.state.zipCode
+    )
+
+    const isDisabled = Object.keys(errors).some(x => errors[x])
+    return !isDisabled
+  }
+
 
   // eslint-disable-next-line complexity
   render() {
@@ -56,11 +112,24 @@ export class Checkout extends React.Component {
       zipCode
     } = this.state
 
-    const isEnabled =
-      firstName.length > 0 &&
-      lastName.length > 0 &&
-      email.length > 0 &&
-      streetAddress1.length > 0
+
+    const errors = validate(
+      firstName,
+      lastName,
+      email,
+      streetAddress1,
+      city,
+      state,
+      zipCode
+    )
+    const isDisabled = !Object.keys(errors).some(x => errors[x])
+
+    const shouldMarkError = field => {
+      const hasError = errors[field]
+      const shouldShow = this.state.touched[field]
+      return hasError ? shouldShow : false
+    }
+
 
     const {handleSubmit, handleChange} = this
     const cart = this.props.cart
@@ -82,8 +151,6 @@ export class Checkout extends React.Component {
       return accum + currVal
     }, 0)
 
-    console.log('USER', user)
-
     return (
       <div>
         {cart.map(item => (
@@ -104,34 +171,42 @@ export class Checkout extends React.Component {
             Shipping Address:
             <label htmlFor="firstName">First Name: </label>
             <input
+              className={shouldMarkError('firstName') ? 'error' : ''}
               type="text"
               name="firstName"
               onChange={handleChange}
               value={user.id ? user.firstName : firstName}
+              onBlur={this.handleBlur('firstName')}
             />
             <br />
             <label htmlFor="lastName">Last Name: </label>
             <input
+              className={shouldMarkError('lastName') ? 'error' : ''}
               type="text"
               name="lastName"
               onChange={handleChange}
               value={user.id ? user.lastName : lastName}
+              onBlur={this.handleBlur('lastName')}
             />
             <br />
             <label htmlFor="email">Email: </label>
             <input
+              className={shouldMarkError('email') ? 'error' : ''}
               type="text"
               name="email"
               onChange={handleChange}
               value={user.id ? user.email : email}
+              onBlur={this.handleBlur('email')}
             />
             <br />
             <label htmlFor="streetAddress1">Address Line 1: </label>
             <input
+              className={shouldMarkError('streetAddress1') ? 'error' : ''}
               type="text"
               name="streetAddress1"
               onChange={handleChange}
               value={streetAddress1}
+              onBlur={this.handleBlur('streetAddress1')}
             />
             <label htmlFor="streetAddress2">Address Line 2: </label>
             <input
@@ -142,24 +217,30 @@ export class Checkout extends React.Component {
             />
             <label htmlFor="city">City: </label>
             <input
+              className={shouldMarkError('city') ? 'error' : ''}
               type="text"
               name="city"
               onChange={handleChange}
               value={city}
+              onBlur={this.handleBlur('city')}
             />
             <label htmlFor="state">State: </label>
             <input
+              className={shouldMarkError('state') ? 'error' : ''}
               type="text"
               name="state"
               onChange={handleChange}
               value={state}
+              onBlur={this.handleBlur('state')}
             />
             <label htmlFor="zipCode">Zip Code: </label>
             <input
+              className={shouldMarkError('zipCode') ? 'error' : ''}
               type="text"
               name="zipCode"
               onChange={handleChange}
               value={zipCode}
+              onBlur={this.handleBlur('zipCode')}
             />
             <br />
           </div>
@@ -168,34 +249,42 @@ export class Checkout extends React.Component {
             Billing Address:
             <label htmlFor="firstName">First Name: </label>
             <input
+              className={shouldMarkError('firstName') ? 'error' : ''}
               type="text"
               name="firstName"
               onChange={handleChange}
               value={user.id ? user.firstName : firstName}
+              onBlur={this.handleBlur('firstName')}
             />
             <br />
             <label htmlFor="lastName">Last Name: </label>
             <input
+              className={shouldMarkError('lastName') ? 'error' : ''}
               type="text"
               name="lastName"
               onChange={handleChange}
               value={user.id ? user.lastName : lastName}
+              onBlur={this.handleBlur('lastName')}
             />
             <br />
             <label htmlFor="email">Email: </label>
             <input
+              className={shouldMarkError('email') ? 'error' : ''}
               type="text"
               name="email"
               onChange={handleChange}
               value={user.id ? user.email : email}
+              onBlur={this.handleBlur('email')}
             />
             <br />
             <label htmlFor="streetAddress1">Address Line 1: </label>
             <input
+              className={shouldMarkError('streetAddress1') ? 'error' : ''}
               type="text"
               name="streetAddress1"
               onChange={handleChange}
               value={streetAddress1}
+              onBlur={this.handleBlur('streetAddress1')}
             />
             <label htmlFor="streetAddress2">Address Line 2: </label>
             <input
@@ -206,24 +295,30 @@ export class Checkout extends React.Component {
             />
             <label htmlFor="city">City: </label>
             <input
+              className={shouldMarkError('city') ? 'error' : ''}
               type="text"
               name="city"
               onChange={handleChange}
               value={city}
+              onBlur={this.handleBlur('city')}
             />
             <label htmlFor="state">State: </label>
             <input
+              className={shouldMarkError('state') ? 'error' : ''}
               type="text"
               name="state"
               onChange={handleChange}
               value={state}
+              onBlur={this.handleBlur('state')}
             />
             <label htmlFor="zipCode">Zip Code: </label>
             <input
+              className={shouldMarkError('zipCode') ? 'error' : ''}
               type="text"
               name="zipCode"
               onChange={handleChange}
               value={zipCode}
+              onBlur={this.handleBlur('zipCode')}
             />
           </div>
 
@@ -232,7 +327,7 @@ export class Checkout extends React.Component {
               className="stylizedButton"
               type="submit"
               onClick={() => this.props.checkingOut()}
-              disabled={!isEnabled}
+              disabled={!isDisabled}
             >
               Place your order
             </button>
