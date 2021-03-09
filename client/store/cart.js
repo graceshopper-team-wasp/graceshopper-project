@@ -36,10 +36,9 @@ const _deleteOneFromCart = product => {
   }
 }
 
-const checkedOut = product => {
+const checkedOut = () => {
   return {
-    type: CHECKOUT,
-    product
+    type: CHECKOUT
   }
 }
 
@@ -102,21 +101,21 @@ export const deleteOneFromCart = id => async dispatch => {
   }
 }
 
-// export const checkout = () => async dispatch => {
-//   try {
-//     const res = await axios.put(`/api/users/checkout`)
-//     console.log('RES: ', res)
-//     // if logged in
-//     // if (res.data !== 'no user found') {
-//       dispatch(checkedOut(res.data))
-//     // } else {
-//     //   // if not logged in...
-//     //   const productRes = await axios.get(`/api/products/${id}`)
-//     // }
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
+export const checkout = () => async dispatch => {
+  try {
+    const res = await axios.put(`/api/users/checkout`)
+    console.log('RES: ', res)
+    // if logged in
+    if (res.data !== 'no user found') {
+      dispatch(getCart())
+    } else {
+      // if not logged in...
+      dispatch(checkedOut())
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 export const deleteFromCart = product => async dispatch => {
   try {
@@ -169,8 +168,8 @@ export default function(state = defaultCart, action) {
       return product.quantity === 0
         ? filteredState
         : [...filteredState, product]
-    // case CHECKOUT:
-    //   return state.filter(item => item.product_orders.orderId.complete === true)
+    case CHECKOUT:
+      return defaultCart
     default:
       return state
   }

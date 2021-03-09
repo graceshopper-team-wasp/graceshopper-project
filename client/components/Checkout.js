@@ -115,6 +115,7 @@ export class Checkout extends React.Component {
             <button
               className="stylizedButton"
               type="submit"
+              onClick={() => this.props.checkingOut()}
               disabled={!isEnabled}
             >
               Place your order
@@ -131,7 +132,6 @@ export class Checkout extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  deleteItem: item => dispatch(deleteFromCart(item)),
   checkingOut: () => dispatch(checkout())
 })
 
