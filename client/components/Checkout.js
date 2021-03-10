@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
 import Alert from 'react-bootstrap/Alert'
 import {checkout} from '../store/cart'
 
@@ -38,10 +39,13 @@ function validate(
   }
 }
 
+
+
 export class Checkout extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+
       firstName1: props.user.firstName || '',
       lastName1: props.user.lastName || '',
       email1: props.user.email || '',
@@ -74,6 +78,7 @@ export class Checkout extends React.Component {
         city2: false,
         state2: false,
         zipCode2: false
+
       }
     }
     this.handleChange = this.handleChange.bind(this)
@@ -92,12 +97,12 @@ export class Checkout extends React.Component {
     })
   }
 
+
   handleSubmit(evt) {
     if (!this.canBeSubmitted()) {
       evt.preventDefault()
       return
     }
-
     this.setState({
       firstName1: '',
       lastName1: '',
@@ -120,6 +125,7 @@ export class Checkout extends React.Component {
 
   canBeSubmitted() {
     const errors = validate(
+
       this.state.email1,
       this.state.password1,
       this.state.email1,
@@ -134,11 +140,13 @@ export class Checkout extends React.Component {
       this.state.city2,
       this.state.state2,
       this.state.zipCode2
+
     )
 
     const isDisabled = Object.keys(errors).some(x => errors[x])
     return !isDisabled
   }
+
 
   // eslint-disable-next-line complexity
   render() {
@@ -161,6 +169,7 @@ export class Checkout extends React.Component {
       zipCode2
     } = this.state
 
+
     const errors = validate(
       firstName1,
       lastName1,
@@ -178,6 +187,7 @@ export class Checkout extends React.Component {
       zipCode2
     )
     const isDisabled = !Object.keys(errors).some(x => errors[x])
+
 
     const shouldMarkError = field => {
       const hasError = errors[field]
@@ -201,6 +211,7 @@ export class Checkout extends React.Component {
     }, 0)
 
     return (
+
       <div className="checkout">
         <div className="cart-summary">
           <h4>Cart Summary:</h4>
@@ -419,6 +430,7 @@ export class Checkout extends React.Component {
           </form>
         </div>
         <div>
+
           <Link to="/confirmation">
             <button
               className="stylizedButton"

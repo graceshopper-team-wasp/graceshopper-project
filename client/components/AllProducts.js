@@ -9,17 +9,31 @@ import {motion} from 'framer-motion'
 export class AllProducts extends React.Component {
   constructor() {
     super()
-
+    this.state = {
+      searchString: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
     this.handleDropdownChangeFilter = this.handleDropdownChangeFilter.bind(this)
   }
   componentDidMount() {
     this.props.getProducts()
   }
+  handleChange = event => {
+    this.setState({searchString: event.target.value})
+  }
   handleDropdownChangeFilter(e) {
     this.props.filter(e.target.value)
   }
   render() {
-    const {products, user} = this.props
+    let {products, user} = this.props
+    let searchString = this.state.searchString.trim().toLowerCase()
+    if (searchString.length > 0) {
+      products = products.filter(
+        el =>
+          el.flavor.toLowerCase().match(searchString) ||
+          el.description.toLowerCase().match(searchString)
+      )
+    }
     const addToCart = this.props.add
     const isAdmin = user.isAdmin
     return (
@@ -33,6 +47,12 @@ export class AllProducts extends React.Component {
           <option value="Made">BubblySort</option>
           <option value="partnership">Partner Brands</option>
         </select>
+        <input
+          type="text"
+          value={this.state.searchString}
+          onChange={this.handleChange}
+          placeholder="Search Seltzers"
+        />
         <motion.div
           className="allProducts"
           initial="pageInitial"

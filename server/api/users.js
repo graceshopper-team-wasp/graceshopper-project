@@ -33,7 +33,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
-      res.sendStatus(404)
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
@@ -60,7 +60,7 @@ router.get('/previousorders', async (req, res, next) => {
       })
       res.send(prevOrders)
     } else {
-      res.sendStatus(404)
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
@@ -70,7 +70,7 @@ router.get('/previousorders', async (req, res, next) => {
 //adds product to to cart
 router.post('/:productId', async (req, res, next) => {
   try {
-    // console.log('REQ USER: ', req.user)
+    console.log('REQ USER: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const user = await User.findByPk(userId)
@@ -84,8 +84,8 @@ router.post('/:productId', async (req, res, next) => {
   }
 })
 
-//removes product from cart
-router.delete('/:productId', async (req, res, next) => {
+//removes all of a product from cart
+router.delete('/delete/:productId', async (req, res, next) => {
   try {
     if (req.user) {
       const userId = req.user.id
@@ -100,8 +100,8 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
-//removes all of a product from cart
-router.delete('/delete/:productId', async (req, res, next) => {
+//removes product from cart
+router.delete('/:productId', async (req, res, next) => {
   try {
     if (req.user) {
       const userId = req.user.id
