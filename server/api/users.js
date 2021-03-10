@@ -33,7 +33,7 @@ router.get('/cart', async (req, res, next) => {
       })
       res.send(cart)
     } else {
-      res.sendStatus(404)
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
@@ -60,7 +60,7 @@ router.get('/previousorders', async (req, res, next) => {
       })
       res.send(prevOrders)
     } else {
-      res.sendStatus(404)
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
@@ -77,23 +77,7 @@ router.post('/:productId', async (req, res, next) => {
       await user.addToCart(req.params.productId)
       res.sendStatus(200)
     } else {
-      res.status(404).send('no user found')
-    }
-  } catch (err) {
-    next(err)
-  }
-})
-
-//removes product from cart
-router.delete('/:productId', async (req, res, next) => {
-  try {
-    if (req.user) {
-      const userId = req.user.id
-      const user = await User.findByPk(userId)
-      await user.removeFromCart(req.params.productId)
-      res.sendStatus(200)
-    } else {
-      res.sendStates(404)
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
@@ -109,7 +93,23 @@ router.delete('/delete/:productId', async (req, res, next) => {
       await user.removeFromCart(req.params.productId)
       res.sendStatus(200)
     } else {
-      res.sendStatus(404)
+      res.send('no user found')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+//removes product from cart
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    if (req.user) {
+      const userId = req.user.id
+      const user = await User.findByPk(userId)
+      await user.removeFromCart(req.params.productId)
+      res.sendStatus(200)
+    } else {
+      res.send('no user found')
     }
   } catch (err) {
     next(err)
@@ -125,7 +125,7 @@ router.put('/checkout', async (req, res, next) => {
       await user.checkout()
       res.sendStatus(200)
     } else {
-      res.sendStatus(404)
+      res.send('no user found')
     }
     //NOTE FROM NUALA: I UPDATED the user instance method to do this.
     // //user always needs an open order, so we create a new order and assign it to user
