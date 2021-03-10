@@ -50,14 +50,15 @@ async function seed() {
       inventory: 20,
       price: 2.0,
       description:
-        "cherry seltzer Made in BubblySort's one of a kind facility.",
+        "The delicious flavor from your favorite fresh cherries. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind seltzer facility.",
       imageURL: 'https://i.imgur.com/qFugLfS.png'
     },
     {
       flavor: 'grape',
       inventory: 32,
       price: 2.0,
-      description: "grape seltzer Made in BubblySort's one of a kind facility.",
+      description:
+        "The delicious flavor from your favorite fresh grapes. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind seltzer facility.",
       imageURL: 'https://i.imgur.com/Pnsdste.png'
     },
     {
@@ -65,14 +66,15 @@ async function seed() {
       inventory: 22,
       price: 2.0,
       description:
-        "orange seltzer Made in BubblySort's one of a kind facility.",
+        "The delicious flavor from your favorite fresh oranges. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind seltzer facility.",
       imageURL: 'https://i.imgur.com/wkaJl1V.png'
     },
     {
       flavor: 'peach',
       inventory: 17,
       price: 2.0,
-      description: "peach seltzer Made in BubblySort's one of a kind facility.",
+      description:
+        "The delicious flavor from your favorite fresh peaches. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind seltzer facility.",
       imageURL: 'https://i.imgur.com/RPMTVSM.png'
     },
     {
@@ -80,7 +82,7 @@ async function seed() {
       inventory: 31,
       price: 2.0,
       description:
-        "strawberry seltzer Made in BubblySort's one of a kind facility!",
+        "The delicious flavor from your favorite fresh strawberries. Built to keep you hydrated and thinking of summer days. Made in BubblySort's one of a kind seltzer facility.",
       imageURL: 'https://i.imgur.com/O83l4fx.png'
     },
     {
@@ -109,6 +111,34 @@ async function seed() {
       inventory: 45,
       price: 2.0,
       description: 'Exclusive partnership with Schweppes seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'spindrift seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Spindrift seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'perrier seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Perrier seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'aha seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Aha seltzer.',
+      imageURL: 'https://i.imgur.com/1G0tZ1U.png'
+    },
+    {
+      flavor: 'topo chico seltzer',
+      inventory: 45,
+      price: 2.0,
+      description: 'Exclusive partnership with Topo Chico seltzer.',
       imageURL: 'https://i.imgur.com/1G0tZ1U.png'
     }
   ]
