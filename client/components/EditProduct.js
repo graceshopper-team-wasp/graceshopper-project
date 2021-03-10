@@ -61,24 +61,20 @@ class EditProduct extends React.Component {
     return (
       <form id="edit_product_form" onSubmit={handleSubmit}>
         <label>Flavor:</label>
-        <br />
         <input name="flavor" onChange={handleChange} value={flavor} />
         <br />
         <label>Inventory:</label>
-        <br />
         <input name="inventory" onChange={handleChange} value={inventory} />
         <br />
         <label>Price</label>
-        <br />
         <input name="price" onChange={handleChange} value={price} />
         <br />
         <label>Description: </label>
-        <br />
         <input name="description" onChange={handleChange} value={description} />
         <br />
         <label>ImageUrl:</label>
-        <br />
         <input name="imageURL" onChange={handleChange} value={imageURL} />
+        <br />
         <button className="submit_button" type="submit">
           Submit
         </button>

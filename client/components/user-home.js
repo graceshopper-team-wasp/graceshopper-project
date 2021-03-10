@@ -13,7 +13,7 @@ export class UserHome extends React.Component {
   }
 
   render() {
-    const {name, email, prevOrders, cart} = this.props
+    const {name, email, prevOrders} = this.props
 
     return (
       <div className="user-home-page">

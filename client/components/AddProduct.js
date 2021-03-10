@@ -34,7 +34,7 @@ class AddProduct extends React.Component {
   }
 
   render() {
-    const {flavor, inventory, price, description, imageURL} = this.state
+    const {flavor, inventory, price, description} = this.state
     const {handleSubmit, handleChange} = this
     return (
       <form className="add_product_form" onSubmit={handleSubmit}>

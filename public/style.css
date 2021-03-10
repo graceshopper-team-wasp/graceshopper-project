@@ -34,6 +34,11 @@ img {
   width: auto;
 }
 
+input {
+  display: inline-block;
+  margin-left: 1em;
+}
+
 /* title styling */
 
 @import url('https://fonts.googleapis.com/css?family=Modak');
@@ -208,6 +213,44 @@ select {
   transition: 0.4s;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.delete_button {
+  border-radius: 7px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: white;
+  border: 1px #db8a74;
+  background: #ffcccc;
+  transition: 0.4s;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.delete_button:hover {
+  background: white;
+  color: #ffcccc;
+}
+
+.submit_button {
+  border-radius: 7px;
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: white;
+  border: 1px #db8a74;
+  background: #ffcccc;
+  transition: 0.4s;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.submit_button:hover {
+  background: white;
+  color: #ffcccc;
 }
 
 .stylizedButton:hover {
@@ -394,4 +437,41 @@ body,
   display: inline-block;
   text-align: left;
   justify-content: center;
+}
+
+/* checkout form validation */
+.error {
+  border: 1px solid red;
+}
+
+/*social media styling */
+.social-container {
+  background: #b3b3ff;
+  padding: 25px 50px;
+}
+
+a.social {
+  margin: 0 1rem;
+  transition: transform 250ms;
+  display: inline-block;
+}
+
+a.social:hover {
+  transform: translateY(-2px);
+}
+
+a.youtube {
+  color: #eb3223;
+}
+
+a.facebook {
+  color: #4968ad;
+}
+
+a.twitter {
+  color: #49a1eb;
+}
+
+a.instagram {
+  color: black;
 }
