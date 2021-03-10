@@ -70,14 +70,14 @@ router.get('/previousorders', async (req, res, next) => {
 //adds product to to cart
 router.post('/:productId', async (req, res, next) => {
   try {
-    // console.log('REQ USER: ', req.user)
+    console.log('REQ USER: ', req.user)
     if (req.user) {
       const userId = req.user.id
       const user = await User.findByPk(userId)
       await user.addToCart(req.params.productId)
       res.sendStatus(200)
     } else {
-      res.sendStatus(404)
+      res.status(404).send('no user found')
     }
   } catch (err) {
     next(err)
