@@ -154,7 +154,6 @@ async function seed() {
   console.log(green('Seeded products'))
 
   await nuala.addToCart(cherry.id)
-  await nuala.addToCart(pomegranate.id)
   await nuala.checkout()
 
   //   await Product.bulkCreate([
