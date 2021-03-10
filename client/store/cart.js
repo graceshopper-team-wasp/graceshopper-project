@@ -55,7 +55,7 @@ const deletedFromCart = product => {
 export const getCart = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users/cart`)
-    dispatch(gotCart(res.status === 404 ? defaultCart : res.data))
+    dispatch(gotCart(res.data === 'no user found' ? defaultCart : res.data))
   } catch (err) {
     console.error(err)
   }
@@ -68,7 +68,7 @@ export const addToCart = id => async dispatch => {
     const res = await axios.post(`/api/users/${id}`)
     console.log('RES IN ADDTOCART: ', res)
     // if logged in...
-    if (res.status !== 404) {
+    if (res.data !== 'no user found') {
       dispatch(getCart())
 
       // if not logged in...
@@ -88,7 +88,7 @@ export const deleteOneFromCart = id => async dispatch => {
     const res = await axios.delete(`/api/users/${id}`)
 
     // if logged in...
-    if (res.status === 404) {
+    if (res.data !== 'no user found') {
       dispatch(getCart())
 
       // if not logged in...
@@ -106,7 +106,7 @@ export const checkout = () => async dispatch => {
     const res = await axios.put(`/api/users/checkout`)
     console.log('RES: ', res)
     // if logged in
-    if (res.data !== 404) {
+    if (res.data !== 'no user found') {
       dispatch(getCart())
     } else {
       // if not logged in...
@@ -121,7 +121,7 @@ export const deleteFromCart = product => async dispatch => {
   try {
     // for logged in users...
     const res = await axios.delete(`/api/users/delete/${product.id}`)
-    if (res.status !== 404) {
+    if (res.data !== 'no user found') {
       dispatch(deletedFromCart(product))
     } else {
       // for logged out users...
