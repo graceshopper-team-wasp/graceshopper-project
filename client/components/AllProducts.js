@@ -59,7 +59,7 @@ export class AllProducts extends React.Component {
       this.state.offset + this.state.perPage
     )
     const postData = slice.map(product => (
-      <React.Fragment>
+      <React.Fragment key={product.id}>
         <div key={product.id} className="singleProduct">
           <Link to={`/products/${product.id}`}>
             <motion.img
@@ -100,7 +100,6 @@ export class AllProducts extends React.Component {
     return (
       <div>
         <div>
-          {/* <h1>{this.state.postData}</h1> */}
           <h3 id="allSeltzersTitle">Seltzers</h3>
           <select onChange={this.handleDropdownChangeFilter} id="select-filter">
             <option className="option" value="All">
@@ -133,19 +132,21 @@ export class AllProducts extends React.Component {
             )}
             {paginatedProducts}
           </motion.div>
-          <ReactPaginate
-            previousLabel="prev"
-            nextLabel="next"
-            breakLabel="..."
-            breakClassName="break-me"
-            pageCount={this.state.pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={this.handlePageClick}
-            containerClassName="pagination"
-            subContainerClassName="pages pagination"
-            activeClassName="active"
-          />
+          <div id="divPaginate">
+            <ReactPaginate
+              previousLabel="prev"
+              nextLabel="next"
+              breakLabel="..."
+              breakClassName="break-me"
+              pageCount={this.state.pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={this.handlePageClick}
+              containerClassName="pagination"
+              subContainerClassName="pages pagination"
+              activeClassName="active"
+            />
+          </div>
         </div>
         <div>{isAdmin && <AddProduct />}</div>
       </div>
