@@ -12,18 +12,20 @@ router.get('/', async (req, res, next) => {
       if (req.query.filterBy === 'All') {
         const products = await Product.findAll()
         res.json(products)
-      }
-      const products = await Product.findAll({
-        where: {
-          description: {
-            [Op.like]: '%' + req.query.filterBy + '%'
+      } else {
+        const products = await Product.findAll({
+          where: {
+            description: {
+              [Op.like]: '%' + req.query.filterBy + '%'
+            }
           }
-        }
-      })
+        })
+        res.json(products)
+      }
+    } else {
+      const products = await Product.findAll()
       res.json(products)
     }
-    const products = await Product.findAll()
-    res.json(products)
   } catch (err) {
     next(err)
   }
