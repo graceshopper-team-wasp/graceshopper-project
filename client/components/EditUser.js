@@ -26,7 +26,9 @@ const EditUser = props => {
           <input name="lastName" type="text" placeholder={user.lastName} />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button className="submit_button" type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>

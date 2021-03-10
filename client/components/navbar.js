@@ -58,9 +58,9 @@ class Navibar extends React.Component {
         >
           <div id="links">
             <Nav className="mr-auto">
-              {user.isAdmin && <Link to="/users">All Users</Link>}
               {isLoggedIn ? (
                 <div>
+                  {user.isAdmin && <Link to="/users">All Users</Link>}
                   <Link to="/home">My Account</Link>
                   <Link to="/products">Products</Link>
                   <Link to="/cart">
